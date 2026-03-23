@@ -1,0 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "PT Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "PT Serif", ui-serif, Georgia, serif;
+
+  --color-bg: #EFE9DC;
+  --color-cobalt: #263A99;
+  --color-ink: #2D2D2D;
+  --color-sky: #97B4DE;
+  --color-stone: #DCD0BE;
+  
+  /* Accent Dots */
+  --color-dot-red: #C54B4B;
+  --color-dot-mustard: #D4A017;
+  --color-dot-forest: #2E4D32;
+  --color-dot-skyblue: #87CEEB;
+  --color-dot-pink: #F4C2C2;
+  --color-dot-orange: #E67E22;
+  --color-dot-green: #4F7942;
+  --color-dot-mutedgreen: #8F9779;
+  --color-dot-brown: #5D4037;
+  --color-dot-yellow: #F4D03F;
+}
+
+@layer base {
+  body {
+    @apply bg-bg text-ink font-sans selection:bg-cobalt selection:text-stone;
+  }
+
+  h1, h2, h3, .serif {
+    @apply font-serif;
+  }
+
+  /* Focus states */
+  a:focus-visible, button:focus-visible {
+    @apply outline-none ring-2 ring-cobalt ring-offset-2 ring-offset-bg;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .ease-portfolio {
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+@keyframes bubble-break {
+  0% {
+    scale: 1;
+    opacity: 1;
+    clip-path: circle(50%);
+  }
+  25% {
+    scale: 1.4;
+    opacity: 0.8;
+    clip-path: circle(50%);
+  }
+  100% {
+    scale: 2.6;
+    opacity: 0;
+    /* Shattered look: a series of "shards" pointing outwards from the center */
+    clip-path: polygon(
+      50% 40%, 55% 0%, 70% 10%, 
+      60% 45%, 100% 30%, 85% 55%, 
+      50% 60%, 65% 100%, 40% 85%, 
+      40% 50%, 0% 70%, 15% 45%,
+      45% 40%, 10% 0%, 30% 15%
+    );
+  }
+}
+
+.animate-bubble-break {
+  animation: bubble-break 0.22s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@keyframes dangling {
+  0% { transform: rotate(-1.5deg); }
+  50% { transform: rotate(1.5deg); }
+  100% { transform: rotate(-1.5deg); }
+}
+
+.animate-dangling {
+  animation: dangling 4s ease-in-out infinite;
+  transform-origin: top center;
+}
+
+.animate-dangling-hover {
+  animation: dangling 2s ease-in-out infinite;
+  transform-origin: top center;
+}
+
+/* Accessibility: Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
