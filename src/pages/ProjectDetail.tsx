@@ -9,103 +9,136 @@ export const ProjectDetail = () => {
   const { id } = useParams();
   
   const projectData: Record<string, any> = {
-    '1': {
-      title: 'Traverse',
-      subtitle: '2021–present',
-      category: 'Accessible Design / Design Systems / Layout Design / Marketing Design / Visual Design',
-      description: 'Traverse® is a comprehensive social studies curriculum designed to inspire curiosity and critical thinking. As a Senior Designer, I collaborated with directors to evolve a dynamic brand identity and create a wide range of on-brand design assets supporting the product, sales enablement, and marketing initiatives.',
+    ‘1’: {
+      title: ‘Traverse’,
+      subtitle: ‘2021–present’,
+      category: ‘Accessible Design / Design Systems / Layout Design / Marketing Design / Visual Design’,
+      description: ‘Traverse® is a comprehensive social studies curriculum designed to inspire curiosity and critical thinking. As a Senior Designer, I collaborated with directors to evolve a dynamic brand identity and create a wide range of on-brand design assets supporting the product, sales enablement, and marketing initiatives.’,
       images: [
-        'https://picsum.photos/seed/behome1/1600/900',
-        'https://picsum.photos/seed/behome2/1600/900',
-        'https://picsum.photos/seed/behome3/1600/900',
+        ‘/images/Projects/1_Traverse/Traverse-1.webp’,
+        ‘/images/Projects/1_Traverse/Traverse-2.webp’,
+        ‘/images/Projects/1_Traverse/Traverse-3.webp’,
+        ‘/images/Projects/1_Traverse/Traverse-4.webp’,
+        ‘/images/Projects/1_Traverse/Traverse-5.webp’,
+        ‘/images/Projects/1_Traverse/Traverse-6.webp’,
+        ‘/images/Projects/1_Traverse/Traverse-7.webp’,
+        ‘/images/Projects/1_Traverse/Traverse-8.webp’,
+        ‘/images/Projects/1_Traverse/Traverse-9.webp’,
       ]
     },
-    '2': {
-      title: 'Dragonfly',
-      subtitle: '2024–present',
-      category: 'Accessible Design / Design Systems / Layout Design / Marketing Design / Social Media Design / Visual Design',
-      description: 'Dragonfly is a knowledge-rich, science-of-reading–aligned ELA curriculum. As a Senior Designer, I collaborated with directors to lead and execute visual design projects spanning product content, accessibility design strategy and production, and go-to-market campaigns.',
+    ‘2’: {
+      title: ‘Dragonfly’,
+      subtitle: ‘2024–present’,
+      category: ‘Accessible Design / Design Systems / Layout Design / Marketing Design / Social Media Design / Visual Design’,
+      description: ‘Dragonfly is a knowledge-rich, science-of-reading–aligned ELA curriculum. As a Senior Designer, I collaborated with directors to lead and execute visual design projects spanning product content, accessibility design strategy and production, and go-to-market campaigns.’,
       images: [
-        'https://picsum.photos/seed/study1/1600/900',
-        'https://picsum.photos/seed/study2/1600/900',
-        'https://picsum.photos/seed/study3/1600/900',
+        ‘/images/Projects/2_Dragonfly/Dragonfly-1.webp’,
+        ‘/images/Projects/2_Dragonfly/Dragonfly-2.webp’,
+        ‘/images/Projects/2_Dragonfly/Dragonfly-3.webp’,
+        ‘/images/Projects/2_Dragonfly/Dragonfly-4.webp’,
+        ‘/images/Projects/2_Dragonfly/Dragonfly-5.webp’,
+        ‘/images/Projects/2_Dragonfly/Dragonfly-6.webp’,
+        ‘/images/Projects/2_Dragonfly/Dragonfly-7.webp’,
+        ‘/images/Projects/2_Dragonfly/Dragonfly-8.webp’,
       ]
     },
-    '3': {
-      title: 'VelocityAI',
-      subtitle: '2025',
-      category: 'UX/UI Design / Visual Design / Web Design',
-      description: 'VelocityAI provides AI-driven coaching, real-time guidance, and automated workflows for sales teams. As a Creative Designer, I explored the visual direction of the marketing website and developed high-fidelity prototypes and frameworks in Figma and Webflow to support developer implementation.',
+    ‘3’: {
+      title: ‘VelocityAI’,
+      subtitle: ‘2025’,
+      category: ‘UX/UI Design / Visual Design / Web Design’,
+      description: ‘VelocityAI provides AI-driven coaching, real-time guidance, and automated workflows for sales teams. As a Creative Designer, I explored the visual direction of the marketing website and developed high-fidelity prototypes and frameworks in Figma and Webflow to support developer implementation.’,
       images: [
-        'https://picsum.photos/seed/imagine1/1600/900',
-        'https://picsum.photos/seed/imagine2/1600/900',
-        'https://picsum.photos/seed/imagine3/1600/900',
+        ‘/images/Projects/3_VelocityAI/VelocityAI-1.webp’,
+        ‘/images/Projects/3_VelocityAI/VelocityAI-2.webp’,
+        ‘/images/Projects/3_VelocityAI/VelocityAI-3.webp’,
+        ‘/images/Projects/3_VelocityAI/VelocityAI-4.webp’,
+        ‘/images/Projects/3_VelocityAI/VelocityAI-5.webp’,
       ]
     },
-    '4': {
-      title: 'BeHome Catalog',
-      subtitle: '2023',
-      category: 'Editorial & Layout Design',
-      description: 'BeHome is a San Pablo–based retail brand offering eco-friendly home and lifestyle products sourced globally. As a freelance designer, I refreshed the Spring 2024 catalog, creating dynamic layouts and a cohesive visual presentation for the seasonal collection.',
+    ‘4’: {
+      title: ‘BeHome Catalog’,
+      subtitle: ‘2023’,
+      category: ‘Editorial & Layout Design’,
+      description: ‘BeHome is a San Pablo–based retail brand offering eco-friendly home and lifestyle products sourced globally. As a freelance designer, I refreshed the Spring 2024 catalog, creating dynamic layouts and a cohesive visual presentation for the seasonal collection.’,
       images: [
-        'https://picsum.photos/seed/brand1/1600/900',
-        'https://picsum.photos/seed/brand2/1600/900',
-        'https://picsum.photos/seed/brand3/1600/900',
+        ‘/images/Projects/4_BeHome%20Catalog/BeHomeCatalog-1.webp’,
+        ‘/images/Projects/4_BeHome%20Catalog/BeHomeCatalog-2.webp’,
+        ‘/images/Projects/4_BeHome%20Catalog/BeHomeCatalog-3.webp’,
+        ‘/images/Projects/4_BeHome%20Catalog/BeHomeCatalog-4.webp’,
+        ‘/images/Projects/4_BeHome%20Catalog/BeHomeCatalog-5.webp’,
       ]
     },
-    '5': {
-      title: 'StudySync',
-      subtitle: '2021–present',
-      category: 'Accessible Design / Design Systems / Layout Design / Marketing Design / Social Media Design / Visual Design',
-      description: 'StudySync is a comprehensive English language arts curriculum designed to support daily learning and text-based knowledge building. As a Senior Designer, I partnered with directors to lead and execute visual design initiatives across product content, accessibility design strategy and production, and sales and marketing materials.',
+    ‘5’: {
+      title: ‘StudySync’,
+      subtitle: ‘2021–present’,
+      category: ‘Accessible Design / Design Systems / Layout Design / Marketing Design / Social Media Design / Visual Design’,
+      description: ‘StudySync is a comprehensive English language arts curriculum designed to support daily learning and text-based knowledge building. As a Senior Designer, I partnered with directors to lead and execute visual design initiatives across product content, accessibility design strategy and production, and sales and marketing materials.’,
       images: [
-        'https://picsum.photos/seed/edit1/1600/900',
-        'https://picsum.photos/seed/edit2/1600/900',
-        'https://picsum.photos/seed/edit3/1600/900',
+        ‘/images/Projects/5_StudySync/StudySync-1.webp’,
+        ‘/images/Projects/5_StudySync/StudySync-2.gif’,
+        ‘/images/Projects/5_StudySync/StudySync-3.webp’,
+        ‘/images/Projects/5_StudySync/StudySync-4.webp’,
+        ‘/images/Projects/5_StudySync/StudySync-5.webp’,
+        ‘/images/Projects/5_StudySync/StudySync-6.webp’,
       ]
     },
-    '6': {
-      title: 'Accessibility Across Brands',
-      subtitle: '2022–present',
-      category: 'Accessible Design / Layout Design / Visual Design',
-      description: 'Accessible content is required in many industries under the ADA and Sections 504 and 508 of the Rehabilitation Act. As a Senior Designer specializing in the WCAG and PDF/UA compliant accessible designs—especially graphics and PDF designs—at Imagine Learning, I strategize, lead, and execute accessibility initiatives across core products including StudySync, Traverse, and Dragonfly, collaborating with and guiding a team of designers and contractors.',
+    ‘6’: {
+      title: ‘Accessibility Across Brands’,
+      subtitle: ‘2022–present’,
+      category: ‘Accessible Design / Layout Design / Visual Design’,
+      description: ‘Accessible content is required in many industries under the ADA and Sections 504 and 508 of the Rehabilitation Act. As a Senior Designer specializing in the WCAG and PDF/UA compliant accessible designs—especially graphics and PDF designs—at Imagine Learning, I strategize, lead, and execute accessibility initiatives across core products including StudySync, Traverse, and Dragonfly, collaborating with and guiding a team of designers and contractors.’,
       images: [
-        'https://picsum.photos/seed/audit1/1600/900',
-        'https://picsum.photos/seed/audit2/1600/900',
-        'https://picsum.photos/seed/audit3/1600/900',
+        ‘/images/Projects/6_Accessibility%20Across%20Brands/Accessibility-1.webp’,
+        ‘/images/Projects/6_Accessibility%20Across%20Brands/Accessibility-2.webp’,
+        ‘/images/Projects/6_Accessibility%20Across%20Brands/Accessibility-3.webp’,
+        ‘/images/Projects/6_Accessibility%20Across%20Brands/Accessibility-4.webp’,
+        ‘/images/Projects/6_Accessibility%20Across%20Brands/Accessibility-5.webp’,
+        ‘/images/Projects/6_Accessibility%20Across%20Brands/Accessibility-6.webp’,
+        ‘/images/Projects/6_Accessibility%20Across%20Brands/Accessibility-7.webp’,
       ]
     },
-    '7': {
-      title: 'Micuna Kitchen',
-      subtitle: '2020',
-      category: 'Design Systems / Social Media Design / Visual Design',
-      description: 'Micuna Kitchen is a San Francisco–based provider of vegan dining options. As a freelance designer, I conceptualized and produced a series of brand materials including business cards, flyers, menus, and social media graphics.',
+    ‘7’: {
+      title: ‘Micuna Kitchen’,
+      subtitle: ‘2020’,
+      category: ‘Design Systems / Social Media Design / Visual Design’,
+      description: ‘Micuna Kitchen is a San Francisco–based provider of vegan dining options. As a freelance designer, I conceptualized and produced a series of brand materials including business cards, flyers, menus, and social media graphics.’,
       images: [
-        'https://picsum.photos/seed/uikit1/1600/900',
-        'https://picsum.photos/seed/uikit2/1600/900',
-        'https://picsum.photos/seed/uikit3/1600/900',
+        ‘/images/Projects/7_Micuna%20Kitchen/MicunaKitchen-1.webp’,
+        ‘/images/Projects/7_Micuna%20Kitchen/MicunaKitchen-2.webp’,
+        ‘/images/Projects/7_Micuna%20Kitchen/MicunaKitchen-3.webp’,
+        ‘/images/Projects/7_Micuna%20Kitchen/MicunaKitchen-4.webp’,
+        ‘/images/Projects/7_Micuna%20Kitchen/MicunaKitchen-5.webp’,
       ]
     },
-    '8': {
-      title: 'Burn A Light Social Media Campaign',
-      subtitle: '2024–present',
-      category: 'Social Media Design',
-      description: 'Burn A Light is a San Francisco–based social impact production studio founded by critically-acclaimed filmmaker Apo W. Bazidi. As a designer and creative consultant, I contributed to social media campaigns that supported brand positioning and film promotion.',
+    ‘8’: {
+      title: ‘Burn A Light Social Media Campaign’,
+      subtitle: ‘2024–present’,
+      category: ‘Social Media Design’,
+      description: ‘Burn A Light is a San Francisco–based social impact production studio founded by critically-acclaimed filmmaker Apo W. Bazidi. As a designer and creative consultant, I contributed to social media campaigns that supported brand positioning and film promotion.’,
       images: [
-        'https://picsum.photos/seed/social1/1600/900',
-        'https://picsum.photos/seed/social2/1600/900',
-        'https://picsum.photos/seed/social3/1600/900',
+        ‘/images/Projects/8_Burn%20A%20Light%20SocialMedia%20Campaign/BurnALight-1.webp’,
+        ‘/images/Projects/8_Burn%20A%20Light%20SocialMedia%20Campaign/BurnALight-2.webp’,
+        ‘/images/Projects/8_Burn%20A%20Light%20SocialMedia%20Campaign/BurnALight-3.webp’,
+        ‘/images/Projects/8_Burn%20A%20Light%20SocialMedia%20Campaign/BurnALight-4.webp’,
       ]
     },
-    '9': {
-      title: 'American Industries',
-      subtitle: '2020, Graduate School Project, Academy of Art University',
-      category: 'Branding & Brand Design / Design Systems / Visual Design',
-      description: 'In this academic rebranding project, students were tasked with reimagining a declining brand. Drawing on my background and interest in fashion media and journalism, I rebranded American Apparel as American Industries, developing a new identity system and visual language while preserving the brand’s original spirit.',
+    ‘9’: {
+      title: ‘American Industries’,
+      subtitle: ‘2020, Graduate School Project, Academy of Art University’,
+      category: ‘Branding & Brand Design / Design Systems / Visual Design’,
+      description: ‘In this academic rebranding project, students were tasked with reimagining a declining brand. Drawing on my background and interest in fashion media and journalism, I rebranded American Apparel as American Industries, developing a new identity system and visual language while preserving the brand’s original spirit.’,
       images: [
-        'https://picsum.photos/seed/logo1/1600/900',
-        'https://picsum.photos/seed/logo2/1600/900',
-        'https://picsum.photos/seed/logo3/1600/900',
+        ‘/images/Projects/9_American%20Industries/American%20Industries-1.webp’,
+        ‘/images/Projects/9_American%20Industries/American%20Industries-2.webp’,
+        ‘/images/Projects/9_American%20Industries/American%20Industries-3.webp’,
+        ‘/images/Projects/9_American%20Industries/American%20Industries-4.webp’,
+        ‘/images/Projects/9_American%20Industries/American%20Industries-5.webp’,
+        ‘/images/Projects/9_American%20Industries/American%20Industries-6.webp’,
+        ‘/images/Projects/9_American%20Industries/American%20Industries-7.webp’,
+        ‘/images/Projects/9_American%20Industries/American%20Industries-8.webp’,
+        ‘/images/Projects/9_American%20Industries/American%20Industries-9.webp’,
+        ‘/images/Projects/9_American%20Industries/American%20Industries-10.webp’,
+        ‘/images/Projects/9_American%20Industries/American%20Industries-11.webp’,
       ]
     },
     'default': {
