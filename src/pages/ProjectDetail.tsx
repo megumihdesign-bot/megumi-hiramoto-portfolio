@@ -126,7 +126,7 @@ export const ProjectDetail = () => {
       title: 'American Industries',
       subtitle: '2020, Graduate School Project, Academy of Art University',
       category: 'Branding & Brand Design / Design Systems / Visual Design',
-      description: 'In this academic rebranding project, students were tasked with reimagining a declining brand. Drawing on my background and interest in fashion media and journalism, I rebranded American Apparel as American Industries, developing a new identity system and visual language while preserving the brand's original spirit.',
+      description: "In this academic rebranding project, students were tasked with reimagining a declining brand. Drawing on my background and interest in fashion media and journalism, I rebranded American Apparel as American Industries, developing a new identity system and visual language while preserving the brand's original spirit.",
       images: [
         '/images/Projects/9_American%20Industries/American%20Industries-1.webp',
         '/images/Projects/9_American%20Industries/American%20Industries-2.webp',
