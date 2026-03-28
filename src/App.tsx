@@ -1,6 +1,6 @@
 import { useState, useEffect, ReactNode } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import { AnimatePresence } from 'motion/react';
+import { AnimatePresence, motion } from 'motion/react';
 
 import { CustomCursor } from './components/CustomCursor';
 import { Header, Footer } from './components/Navigation';
@@ -43,20 +43,31 @@ const PageWrapper = ({ children }: { children: ReactNode }) => {
 };
 
 export default function App() {
-  const [showIntro, setShowIntro] = useState(true);
+  const [showIntro, setShowIntro] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return !sessionStorage.getItem('introPlayed');
+    }
+    return true;
+  });
 
   const handleIntroComplete = () => {
     setShowIntro(false);
+    sessionStorage.setItem('introPlayed', 'true');
   };
-
-  const contentKey = showIntro ? 'hidden' : 'visible';
 
   return (
     <Router>
       <ScrollToTop />
       <CustomCursor />
 
-      <AppContent contentKey={contentKey} />
+      <motion.div
+        initial={{ opacity: showIntro ? 0 : 1 }}
+        animate={{ opacity: showIntro ? 0 : 1 }}
+        transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
+        style={{ pointerEvents: showIntro ? 'none' : 'auto' }}
+      >
+        <AppContent showIntro={showIntro} />
+      </motion.div>
 
       <AnimatePresence>
         {showIntro && (
@@ -67,7 +78,7 @@ export default function App() {
   );
 }
 
-const AppContent = ({ contentKey }: { contentKey: string }) => {
+const AppContent = ({ showIntro }: { showIntro: boolean }) => {
   const location = useLocation();
   const isHomePage = location.pathname === '/';
 
@@ -77,7 +88,7 @@ const AppContent = ({ contentKey }: { contentKey: string }) => {
 
       <AnimatePresence mode="wait">
         <Routes>
-          <Route path="/" element={<PageWrapper><Home key={contentKey} /></PageWrapper>} />
+          <Route path="/" element={<PageWrapper key={showIntro ? 'home-hidden' : 'home-visible'}><Home /></PageWrapper>} />
           <Route path="/work" element={<PageWrapper><Work /></PageWrapper>} />
           <Route path="/work/:id" element={<PageWrapper><ProjectDetail /></PageWrapper>} />
           <Route path="/about" element={<PageWrapper><About /></PageWrapper>} />
