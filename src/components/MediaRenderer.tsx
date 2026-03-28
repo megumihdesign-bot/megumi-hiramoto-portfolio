@@ -6,9 +6,10 @@ interface MediaRendererProps {
   className?: string;
   whileHover?: any;
   transition?: any;
+  loading?: 'lazy' | 'eager';
 }
 
-export const MediaRenderer = ({ src, alt, className = "object-cover w-full h-full", whileHover, transition }: MediaRendererProps) => {
+export const MediaRenderer = ({ src, alt, className = "object-cover w-full h-full", whileHover, transition, loading = 'lazy' }: MediaRendererProps) => {
   const isVideo = src.toLowerCase().match(/\.(mp4|webm|ogg)$/) || src.includes('video');
 
   if (isVideo) {
@@ -34,7 +35,7 @@ export const MediaRenderer = ({ src, alt, className = "object-cover w-full h-ful
       whileHover={whileHover}
       transition={transition}
       referrerPolicy="no-referrer"
-      loading="lazy"
+      loading={loading}
     />
   );
 };

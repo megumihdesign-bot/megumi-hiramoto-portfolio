@@ -37,12 +37,13 @@ export const Work = () => {
             transition={{ duration: 0.8, delay: idx * 0.1 }}
           >
             <Link to={`/work/${project.id}`} className="group block">
-              <div className="aspect-square overflow-hidden bg-stone/30 mb-4">
+              <div className="aspect-square overflow-hidden mb-4">
                 <MediaRenderer
                   src={project.image}
                   alt={project.title}
                   whileHover={{ scale: 1.03 }}
                   transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
+                  loading={idx === 0 ? 'eager' : 'lazy'}
                 />
               </div>
               

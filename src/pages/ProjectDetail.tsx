@@ -207,7 +207,7 @@ export const ProjectDetail = () => {
           {project.images.map((img: string, idx: number) => (
             <motion.div
               key={idx}
-              className="bg-stone/20"
+              className=""
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
