@@ -18,10 +18,6 @@ export const IntroSequence: FC<{ onComplete: () => void }> = ({ onComplete }) =>
       // Accessibility: Skip stagger, hold for 1s, then fade out (400ms)
       const timer = setTimeout(() => {
         setIsExiting(true);
-        setTimeout(() => {
-          document.body.style.overflow = '';
-          onComplete();
-        }, 400);
       }, 1000);
       return () => {
         clearTimeout(timer);
@@ -33,10 +29,6 @@ export const IntroSequence: FC<{ onComplete: () => void }> = ({ onComplete }) =>
     // Then fade out (400ms)
     const timer = setTimeout(() => {
       setIsExiting(true);
-      setTimeout(() => {
-        document.body.style.overflow = '';
-        onComplete();
-      }, 400);
     }, 4400);
 
     return () => {
@@ -51,6 +43,12 @@ export const IntroSequence: FC<{ onComplete: () => void }> = ({ onComplete }) =>
       initial={{ opacity: 1 }}
       animate={{ opacity: isExiting ? 0 : 1 }}
       transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
+      onAnimationComplete={() => {
+        if (isExiting) {
+          document.body.style.overflow = '';
+          onComplete();
+        }
+      }}
     >
       <div className="flex flex-col gap-4 md:gap-8 lg:gap-10 text-center">
         {PHRASES.map((phrase, idx) => (

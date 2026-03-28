@@ -1,6 +1,6 @@
 import { useState, useEffect, ReactNode } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import { AnimatePresence, motion } from 'motion/react';
+import { AnimatePresence } from 'motion/react';
 
 import { CustomCursor } from './components/CustomCursor';
 import { Header, Footer } from './components/Navigation';
@@ -56,14 +56,7 @@ export default function App() {
       <ScrollToTop />
       <CustomCursor />
 
-      <motion.div
-        initial={{ opacity: showIntro ? 0 : 1 }}
-        animate={{ opacity: showIntro ? 0 : 1 }}
-        transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
-        style={{ pointerEvents: showIntro ? 'none' : 'auto' }}
-      >
-        <AppContent contentKey={contentKey} />
-      </motion.div>
+      <AppContent contentKey={contentKey} />
 
       <AnimatePresence>
         {showIntro && (
