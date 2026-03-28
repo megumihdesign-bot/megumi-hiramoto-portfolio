@@ -76,11 +76,11 @@ export const ProjectDetail = () => {
       description: 'StudySync is a comprehensive English language arts curriculum designed to support daily learning and text-based knowledge building. As a Senior Designer, I partnered with directors to lead and execute visual design initiatives across product content, accessibility design strategy and production, and sales and marketing materials.',
       images: [
         `${base}images/Projects/5_StudySync/StudySync-1.webp`,
-        `${base}images/Projects/5_StudySync/StudySync-2.gif`,
+        `${base}images/Projects/5_StudySync/StudySync-2.webp`,
         `${base}images/Projects/5_StudySync/StudySync-3.webp`,
         `${base}images/Projects/5_StudySync/StudySync-4.webp`,
         `${base}images/Projects/5_StudySync/StudySync-5.webp`,
-        `${base}images/Projects/5_StudySync/StudySync-6.webp`,
+        `${base}images/Projects/5_StudySync/StudySync-6.gif`,
       ]
     },
     '6': {
