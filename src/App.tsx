@@ -43,17 +43,13 @@ const PageWrapper = ({ children }: { children: ReactNode }) => {
 };
 
 export default function App() {
-  const [showIntro, setShowIntro] = useState(() => {
-    if (typeof window !== 'undefined') {
-      return !sessionStorage.getItem('introPlayed');
-    }
-    return true;
-  });
+  const [showIntro, setShowIntro] = useState(true);
 
   const handleIntroComplete = () => {
     setShowIntro(false);
-    sessionStorage.setItem('introPlayed', 'true');
   };
+
+  const contentKey = showIntro ? 'hidden' : 'visible';
 
   return (
     <Router>
@@ -66,7 +62,7 @@ export default function App() {
         transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
         style={{ pointerEvents: showIntro ? 'none' : 'auto' }}
       >
-        <AppContent showIntro={showIntro} />
+        <AppContent contentKey={contentKey} />
       </motion.div>
 
       <AnimatePresence>
@@ -78,7 +74,7 @@ export default function App() {
   );
 }
 
-const AppContent = ({ showIntro }: { showIntro: boolean }) => {
+const AppContent = ({ contentKey }: { contentKey: string }) => {
   const location = useLocation();
   const isHomePage = location.pathname === '/';
 
@@ -88,7 +84,7 @@ const AppContent = ({ showIntro }: { showIntro: boolean }) => {
 
       <AnimatePresence mode="wait">
         <Routes>
-          <Route path="/" element={<PageWrapper key={showIntro ? 'home-hidden' : 'home-visible'}><Home /></PageWrapper>} />
+          <Route path="/" element={<PageWrapper><Home key={contentKey} /></PageWrapper>} />
           <Route path="/work" element={<PageWrapper><Work /></PageWrapper>} />
           <Route path="/work/:id" element={<PageWrapper><ProjectDetail /></PageWrapper>} />
           <Route path="/about" element={<PageWrapper><About /></PageWrapper>} />
