@@ -66,7 +66,7 @@ export default function App() {
         transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
         style={{ pointerEvents: showIntro ? 'none' : 'auto' }}
       >
-        <AppContent />
+        <AppContent showIntro={showIntro} />
       </motion.div>
 
       <AnimatePresence>
@@ -78,17 +78,17 @@ export default function App() {
   );
 }
 
-const AppContent = () => {
+const AppContent = ({ showIntro }: { showIntro: boolean }) => {
   const location = useLocation();
   const isHomePage = location.pathname === '/';
 
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
-      
+
       <AnimatePresence mode="wait">
         <Routes>
-          <Route path="/" element={<PageWrapper><Home /></PageWrapper>} />
+          <Route path="/" element={<PageWrapper key={showIntro ? 'home-hidden' : 'home-visible'}><Home /></PageWrapper>} />
           <Route path="/work" element={<PageWrapper><Work /></PageWrapper>} />
           <Route path="/work/:id" element={<PageWrapper><ProjectDetail /></PageWrapper>} />
           <Route path="/about" element={<PageWrapper><About /></PageWrapper>} />
