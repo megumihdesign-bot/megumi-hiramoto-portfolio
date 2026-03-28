@@ -1,4 +1,4 @@
-import { useState, useEffect, ReactNode } from 'react';
+import { useState, ReactNode } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'motion/react';
 
@@ -44,23 +44,11 @@ const PageWrapper = ({ children }: { children: ReactNode }) => {
 
 export default function App() {
   const [showIntro, setShowIntro] = useState(() => {
-    // Check session storage immediately to avoid flash
     if (typeof window !== 'undefined') {
       return !sessionStorage.getItem('introPlayed');
     }
     return true;
   });
-
-  useEffect(() => {
-    if (showIntro) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [showIntro]);
 
   const handleIntroComplete = () => {
     setShowIntro(false);
@@ -71,8 +59,8 @@ export default function App() {
     <Router>
       <ScrollToTop />
       <CustomCursor />
-      
-      <AppContent />
+
+      {!showIntro && <AppContent />}
 
       <AnimatePresence>
         {showIntro && (
