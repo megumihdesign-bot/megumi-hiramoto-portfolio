@@ -1,7 +1,6 @@
 import { useState, useEffect, ReactNode } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 
-const BASENAME = import.meta.env.BASE_URL.replace(/\/$/, '');
 import { AnimatePresence, motion } from 'motion/react';
 
 import { CustomCursor } from './components/CustomCursor';
@@ -58,7 +57,7 @@ export default function App() {
   };
 
   return (
-    <Router basename={BASENAME}>
+    <Router>
       <ScrollToTop />
       <CustomCursor />
 
