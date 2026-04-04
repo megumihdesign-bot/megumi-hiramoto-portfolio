@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Megumi Hiramoto Portfolio</title>
+    <script>
+      // GitHub Pages SPA redirect
+      // Preserves the path and query string, redirects to index.html
+      var location = window.location;
+      sessionStorage.setItem(
+        'redirect',
+        location.pathname.slice(1) + location.search + location.hash
+      );
+      location.replace(location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '') + '/');
+    </script>
+  </head>
+  <body></body>
+</html>
