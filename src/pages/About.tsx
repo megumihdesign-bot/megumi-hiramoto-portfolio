@@ -17,9 +17,10 @@ const EXPERIENCE_DATA = [
     company: 'Imagine Learning',
     categories: 'Accessible Design / Branding & Brand Design / Design Systems / Editorial & Layout Design / Marketing Design / Social Media Design',
     description: [
-      'Designing, maintaining, and overseeing visual solutions for Imagine Learning Core Humanities products across digital, print, sales, and marketing while managing and mentoring contractors',
-      'Delivering accessible designs and documents compliant with the Web Content Accessibility Guidelines (WCAG) and PDF/UA standards to secure state adoption approvals and meet regulatory requirements',
-      'Developing and expanding brand identities and visual language, elevating visual impact and presence'
+      'Lead brand and visual design across digital, print, sales, and marketing for multiple product lines — owning projects from concept through delivery while managing and mentoring contractors.',
+      'Build and evolve brand identities and style guides that elevate market presence and ensure visual consistency at scale.',
+      'Deliver accessible design systems and PDFs compliant with WCAG and PDF/UA standards — directly supporting state adoption approvals and expanding the brands\' market reach.',
+      'Collaborate cross-functionally to translate product strategy into high-impact visual communications.'
     ],
     bgColor: '#DCD0BE',
     textColor: '#263A99'
@@ -32,9 +33,9 @@ const EXPERIENCE_DATA = [
     company: 'Various Clients',
     categories: 'Art Direction / Branding & Brand Design / Design Systems / Editorial & Layout Design / Logo Design / Marketing Design / Web Design / Visual Design / Social Media Design',
     description: [
-      'Offering project-based design services and strategies to the brands such as BeHome, Burn A Light Productions, and VelocityAI',
-      'Executing a range of designed assets including logos, business systems, catalogs, fliers, and social media',
-      'Art directing brand vision, visual strategies, and marketing materials to ensure consistency and impact'
+      'Art direct brand vision and visual strategy for clients.',
+      'Execute a range of design projects—such as logos, identity systems, marketing collateral, catalogs, and social media—for brands including BeHome, Burn A Light Productions, and VelocityAI.',
+      'Provide strategic creative direction alongside execution, serving as both designer and visual partner for growing brands.'
     ],
     bgColor: '#FFFFFF',
     textColor: '#263A99'
@@ -47,8 +48,8 @@ const EXPERIENCE_DATA = [
     company: 'Tappity',
     categories: 'Art Direction / Design Systems / Visual Design',
     description: [
-      'Designed graphic elements and assets to support product development',
-      'Updated and maintained newsletter layouts to enhance readability and brand consistency'
+      'Designed UI graphics and visual assets supporting product development for a children\'s education app.',
+      'Updated and maintained newsletter layouts to enhance readability and brand consistency.'
     ],
     bgColor: '#263A99',
     textColor: '#FFFFFF'
@@ -61,9 +62,8 @@ const EXPERIENCE_DATA = [
     company: "Harper's BAZAAR Japan, Hearst Fujingaho Co., Ltd.",
     categories: 'Project Management / Communication',
     description: [
-      'Managed projects, physical and digital assets for the magazine',
-      'Assisted emails, client communications, and schedules for the editorial team',
-      'Supported photo shoots and manuscript translations'
+      'Managed editorial projects, digital/physical assets, and schedules for a leading fashion publication.',
+      'Supported photo shoots, client communications, and manuscript translations.'
     ],
     bgColor: '#97B4DE',
     textColor: '#263A99'
