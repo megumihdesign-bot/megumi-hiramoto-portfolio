@@ -13,7 +13,7 @@ export const ProjectDetail = () => {
     '1': {
       title: 'Traverse',
       subtitle: '2021–present',
-      category: 'Accessible Design / Design Systems / Layout Design / Marketing Design / Visual Design',
+      category: 'Accessible Design · Design Systems · Layout Design · Marketing Design · Visual Design',
       description: 'Traverse® is a comprehensive social studies curriculum designed to inspire curiosity and critical thinking. As a Senior Designer, I collaborated with directors to evolve a dynamic brand identity and create a wide range of on-brand design assets supporting the product, sales enablement, and marketing initiatives.',
       images: [
         `${base}images/Projects/1_Traverse/Traverse-1.webp`,
@@ -30,7 +30,7 @@ export const ProjectDetail = () => {
     '2': {
       title: 'Dragonfly',
       subtitle: '2024–present',
-      category: 'Accessible Design / Design Systems / Layout Design / Marketing Design / Social Media Design / Visual Design',
+      category: 'Accessible Design · Design Systems · Layout Design · Marketing Design · Social Media Design · Visual Design',
       description: 'Dragonfly is a knowledge-rich, science-of-reading–aligned ELA curriculum. As a Senior Designer, I collaborated with directors to lead and execute visual design projects spanning product content, accessibility design strategy and production, and go-to-market campaigns.',
       images: [
         `${base}images/Projects/2_Dragonfly/Dragonfly-1.webp`,
@@ -46,7 +46,7 @@ export const ProjectDetail = () => {
     '3': {
       title: 'VelocityAI',
       subtitle: '2025',
-      category: 'UX/UI Design / Visual Design / Web Design',
+      category: 'UX/UI Design · Visual Design · Web Design',
       description: 'VelocityAI provides AI-driven coaching, real-time guidance, and automated workflows for sales teams. As a Creative Designer, I explored the visual direction of the marketing website and developed high-fidelity prototypes and frameworks in Figma and Webflow to support developer implementation.',
       images: [
         `${base}images/Projects/3_VelocityAI/VelocityAI-1.webp`,
@@ -72,7 +72,7 @@ export const ProjectDetail = () => {
     '5': {
       title: 'StudySync',
       subtitle: '2021–present',
-      category: 'Accessible Design / Design Systems / Layout Design / Marketing Design / Social Media Design / Visual Design',
+      category: 'Accessible Design · Design Systems · Layout Design · Marketing Design · Social Media Design · Visual Design',
       description: 'StudySync is a comprehensive English language arts curriculum designed to support daily learning and text-based knowledge building. As a Senior Designer, I partnered with directors to lead and execute visual design initiatives across product content, accessibility design strategy and production, and sales and marketing materials.',
       images: [
         `${base}images/Projects/5_StudySync/StudySync-1.webp`,
@@ -86,7 +86,7 @@ export const ProjectDetail = () => {
     '6': {
       title: 'Accessibility Across Brands',
       subtitle: '2022–present',
-      category: 'Accessible Design / Layout Design / Visual Design',
+      category: 'Accessible Design · Layout Design · Visual Design',
       description: 'Accessible content is required in many industries under the ADA and Sections 504 and 508 of the Rehabilitation Act. As a Senior Designer specializing in the WCAG and PDF/UA compliant accessible designs—especially graphics and PDF designs—at Imagine Learning, I strategize, lead, and execute accessibility initiatives across core products including StudySync, Traverse, and Dragonfly, collaborating with and guiding a team of designers and contractors.',
       images: [
         `${base}images/Projects/6_Accessibility%20Across%20Brands/Accessibility-1.webp`,
@@ -101,7 +101,7 @@ export const ProjectDetail = () => {
     '7': {
       title: 'Micuna Kitchen',
       subtitle: '2020',
-      category: 'Design Systems / Social Media Design / Visual Design',
+      category: 'Design Systems · Social Media Design · Visual Design',
       description: 'Micuna Kitchen is a San Francisco–based provider of vegan dining options. As a freelance designer, I conceptualized and produced a series of brand materials including business cards, flyers, menus, and social media graphics.',
       images: [
         `${base}images/Projects/7_Micuna%20Kitchen/MicunaKitchen-1.webp`,
@@ -126,7 +126,7 @@ export const ProjectDetail = () => {
     '9': {
       title: 'American Industries',
       subtitle: '2020, Graduate School Project, Academy of Art University',
-      category: 'Branding & Brand Design / Design Systems / Visual Design',
+      category: 'Branding & Brand Design · Design Systems · Visual Design',
       description: "In this academic rebranding project, students were tasked with reimagining a declining brand. Drawing on my background and interest in fashion media and journalism, I rebranded American Apparel as American Industries, developing a new identity system and visual language while preserving the brand's original spirit.",
       images: [
         `${base}images/Projects/9_American%20Industries/American%20Industries-1.webp`,
@@ -145,7 +145,7 @@ export const ProjectDetail = () => {
     'default': {
       title: 'Design Project',
       subtitle: 'Strategic Visual Communication & Brand Storytelling',
-      category: 'Brand Design / Visual Design / Strategy',
+      category: 'Brand Design · Visual Design · Strategy',
       description: 'This project explores the intersection of strategic thinking and visual elegance. Through a deep focus on craft and user experience, we created a solution that resonates with the target audience and achieves business goals.',
       images: [
         'https://picsum.photos/seed/design1/1600/900',
