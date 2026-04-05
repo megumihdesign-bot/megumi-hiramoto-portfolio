@@ -17,9 +17,9 @@ const EXPERIENCE_DATA = [
     company: 'Imagine Learning',
     categories: 'Accessible Design / Branding & Brand Design / Design Systems / Editorial & Layout Design / Marketing Design / Social Media Design',
     description: [
-      'Lead brand and visual design across digital, print, sales, and marketing for multiple product lines — owning projects from concept through delivery while managing and mentoring contractors.',
+      'Lead brand and visual design across digital, print, sales, and marketing for multiple product lines—owning projects from concept through delivery while managing and mentoring contractors.',
       'Build and evolve brand identities and style guides that elevate market presence and ensure visual consistency at scale.',
-      'Deliver accessible design systems and PDFs compliant with WCAG and PDF/UA standards — directly supporting state adoption approvals and expanding the brands\' market reach.',
+      "Deliver accessible design systems and PDFs compliant with WCAG and PDF/UA standards—directly supporting state adoption approvals and expanding the brands' market reach.",
       'Collaborate cross-functionally to translate product strategy into high-impact visual communications.'
     ],
     bgColor: '#DCD0BE',
