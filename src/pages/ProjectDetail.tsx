@@ -25,6 +25,7 @@ export const ProjectDetail = () => {
         `${base}images/Projects/1_Traverse/Traverse-7.webp`,
         `${base}images/Projects/1_Traverse/Traverse-8.webp`,
         `${base}images/Projects/1_Traverse/Traverse-9.webp`,
+        `${base}images/Projects/1_Traverse/Traverse-10.webp`,
       ]
     },
     '2': {
@@ -41,6 +42,7 @@ export const ProjectDetail = () => {
         `${base}images/Projects/2_Dragonfly/Dragonfly-6.webp`,
         `${base}images/Projects/2_Dragonfly/Dragonfly-7.webp`,
         `${base}images/Projects/2_Dragonfly/Dragonfly-8.webp`,
+        `${base}images/Projects/2_Dragonfly/Dragonfly-9.webp`,
       ]
     },
     '3': {
@@ -80,7 +82,13 @@ export const ProjectDetail = () => {
         `${base}images/Projects/5_StudySync/StudySync-3.webp`,
         `${base}images/Projects/5_StudySync/StudySync-4.webp`,
         `${base}images/Projects/5_StudySync/StudySync-5.webp`,
-        `${base}images/Projects/5_StudySync/StudySync-6.gif`,
+        `${base}images/Projects/5_StudySync/StudySync-6.webp`,
+        `${base}images/Projects/5_StudySync/StudySync-7.gif`,
+        `${base}images/Projects/5_StudySync/StudySync-8.webp`,
+        `${base}images/Projects/5_StudySync/StudySync-9.webp`,
+        `${base}images/Projects/5_StudySync/StudySync-10.webp`,
+        `${base}images/Projects/5_StudySync/StudySync-11.webp`,
+        `${base}images/Projects/5_StudySync/StudySync-12.webp`,
       ]
     },
     '6': {
