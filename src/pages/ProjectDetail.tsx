@@ -13,7 +13,7 @@ export const ProjectDetail = () => {
     '1': {
       title: 'Traverse',
       subtitle: '2021–present',
-      category: 'Accessible Design · Design Systems · Layout Design · Marketing Design · Visual Design',
+      category: 'Design Accessibility · Design Systems · Layout Design · Marketing Design · Visual Design',
       description: 'Traverse® is a comprehensive social studies curriculum designed to inspire curiosity and critical thinking. As a Senior Designer, I collaborated with directors to evolve a dynamic brand identity and create a wide range of on-brand design assets supporting the product, sales enablement, and marketing initiatives.',
       images: [
         `${base}images/Projects/1_Traverse/Traverse-1.webp`,
@@ -31,7 +31,7 @@ export const ProjectDetail = () => {
     '2': {
       title: 'Dragonfly',
       subtitle: '2024–present',
-      category: 'Accessible Design · Design Systems · Layout Design · Marketing Design · Social Media Design · Visual Design',
+      category: 'Design Accessibility · Design Systems · Layout Design · Marketing Design · Social Media Design · Visual Design',
       description: 'Dragonfly is a knowledge-rich, science-of-reading–aligned ELA curriculum. As a Senior Designer, I collaborated with directors to lead and execute visual design projects spanning product content, accessibility design strategy and production, and go-to-market campaigns.',
       images: [
         `${base}images/Projects/2_Dragonfly/Dragonfly-1.webp`,
@@ -74,7 +74,7 @@ export const ProjectDetail = () => {
     '5': {
       title: 'StudySync',
       subtitle: '2021–present',
-      category: 'Accessible Design · Design Systems · Layout Design · Marketing Design · Social Media Design · Visual Design',
+      category: 'Design Accessibility · Design Systems · Layout Design · Marketing Design · Social Media Design · Visual Design',
       description: 'StudySync is a comprehensive English language arts curriculum designed to support daily learning and text-based knowledge building. As a Senior Designer, I partnered with directors to lead and execute visual design initiatives across product content, accessibility design strategy and production, and sales and marketing materials.',
       images: [
         `${base}images/Projects/5_StudySync/StudySync-1.webp`,
@@ -94,7 +94,7 @@ export const ProjectDetail = () => {
     '6': {
       title: 'Accessibility Across Brands',
       subtitle: '2022–present',
-      category: 'Accessible Design · Layout Design · Visual Design',
+      category: 'Design Accessibility · Layout Design · Visual Design',
       description: 'Accessible content is required in many industries under the ADA and Sections 504 and 508 of the Rehabilitation Act. As a Senior Designer specializing in the WCAG and PDF/UA compliant accessible designs—especially graphics and PDF designs—at Imagine Learning, I strategize, lead, and execute accessibility initiatives across core products including StudySync, Traverse, and Dragonfly, collaborating with and guiding a team of designers and contractors.',
       images: [
         `${base}images/Projects/6_Accessibility%20Across%20Brands/Accessibility-1.webp`,

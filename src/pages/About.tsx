@@ -3,9 +3,9 @@ import { motion, AnimatePresence } from 'motion/react';
 import { FloatingDots } from '../components/FloatingDots';
 
 const PRACTICES = [
-  "Accessible Design", "AI + Design", "Art Direction", "Branding & Brand Design",
+  "AI + Design", "Art Direction", "Branding & Brand Design", "Design Accessibility",
   "Design Systems", "Editorial & Layout Design", "Logo Design", "Marketing Design",
-  "UX/UI Design", "Web Design", "Visual Design", "Social Media Design"
+  "Social Media Design", "UX/UI Design", "Visual Design", "Web Design"
 ];
 
 const EXPERIENCE_DATA = [
@@ -15,7 +15,7 @@ const EXPERIENCE_DATA = [
     date: 'May 2021–Present',
     role: 'Senior Graphic Designer',
     company: 'Imagine Learning',
-    categories: 'Accessible Design · Branding & Brand Design · Design Systems · Editorial & Layout Design · Marketing Design · Social Media Design',
+    categories: 'Branding & Brand Design · Design Accessibility · Design Systems · Editorial & Layout Design · Marketing Design · Social Media Design',
     description: [
       'Lead brand and visual design across digital, print, sales, and marketing for multiple product lines—owning projects from concept through delivery while managing and mentoring contractors.',
       'Build and evolve brand identities and style guides that elevate market presence and ensure visual consistency at scale.',
@@ -31,7 +31,7 @@ const EXPERIENCE_DATA = [
     date: 'January 2019–Present',
     role: 'Freelance Designer',
     company: 'Various Clients',
-    categories: 'Art Direction · Branding & Brand Design · Design Systems · Editorial & Layout Design · Logo Design · Marketing Design · Web Design · Visual Design · Social Media Design',
+    categories: 'Art Direction · Branding & Brand Design · Design Systems · Editorial & Layout Design · Logo Design · Marketing Design · Social Media Design · Visual Design · Web Design',
     description: [
       'Art direct brand vision and visual strategy for clients.',
       'Execute a range of design projects—such as logos, identity systems, marketing collateral, catalogs, and social media—for brands including BeHome, Burn A Light Productions, and VelocityAI.',
@@ -60,7 +60,7 @@ const EXPERIENCE_DATA = [
     date: 'January 2016–July 2016',
     role: 'Editorial Assistant',
     company: "Harper's BAZAAR Japan, Hearst Fujingaho Co., Ltd.",
-    categories: 'Project Management · Communication',
+    categories: 'Communication · Project Management',
     description: [
       'Managed editorial projects, digital/physical assets, and schedules for a leading fashion publication.',
       'Supported photo shoots, client communications, and manuscript translations.'
