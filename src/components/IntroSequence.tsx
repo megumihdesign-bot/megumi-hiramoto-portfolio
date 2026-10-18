@@ -1,69 +1,78 @@
 import { motion, useReducedMotion } from 'motion/react';
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 
 const PHRASES = [
+  "Brand Identity & Systems",
+  "Art Direction",
   "Visual Design",
-  "Brand Design",
-  "Accessibility Design"
+  "Accessible Design"
 ];
 
-export const IntroSequence: FC<{ onComplete: () => void }> = ({ onComplete }) => {
+// Reveal pacing is unchanged: one phrase every 0.9s, 0.6s each.
+const STEP = 0.9;
+const REVEAL = 0.6;
+const HOLD_MS = 700; // pause after the last phrase lands (was 2000)
+const EXIT_MS = 900; // curtain lift
+
+export const IntroSequence: FC<{ onExitStart: () => void; onComplete: () => void }> = ({ onExitStart, onComplete }) => {
   const shouldReduceMotion = useReducedMotion();
   const [isExiting, setIsExiting] = useState(false);
+  // Latest callbacks, so parent re-renders never restart the timers
+  const startRef = useRef(onExitStart);
+  const doneRef = useRef(onComplete);
+  startRef.current = onExitStart;
+  doneRef.current = onComplete;
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';
-    
-    if (shouldReduceMotion) {
-      // Accessibility: Skip stagger, hold for 1s, then fade out (400ms)
-      const timer = setTimeout(() => {
-        setIsExiting(true);
-        setTimeout(() => {
-          document.body.style.overflow = '';
-          onComplete();
-        }, 400);
-      }, 1000);
-      return () => {
-        clearTimeout(timer);
-        document.body.style.overflow = '';
-      };
-    }
 
-    // Standard: Sequential reveal (0, 900, 1800) + hold (2000) = 4400ms
-    // Then fade out (400ms)
-    const timer = setTimeout(() => {
+    // Accessibility: no stagger, hold 1s, then a plain fade (400ms)
+    const exitAt = shouldReduceMotion ? 1000 : (STEP * (PHRASES.length - 1) + REVEAL) * 1000 + HOLD_MS;
+    const exitFor = shouldReduceMotion ? 400 : EXIT_MS;
+
+    const t1 = setTimeout(() => {
       setIsExiting(true);
-      setTimeout(() => {
-        document.body.style.overflow = '';
-        onComplete();
-      }, 400);
-    }, 4400);
+      startRef.current();
+    }, exitAt);
+    const t2 = setTimeout(() => {
+      document.body.style.overflow = '';
+      doneRef.current();
+    }, exitAt + exitFor);
 
     return () => {
-      clearTimeout(timer);
+      clearTimeout(t1);
+      clearTimeout(t2);
       document.body.style.overflow = '';
     };
-  }, [onComplete, shouldReduceMotion]);
+  }, [shouldReduceMotion]);
 
   return (
+    // Exit: the cobalt panel closes in on itself as a circle — the same wipe the Press cards use,
+    // played in reverse — while the lines drift up and fade, revealing the home page underneath.
     <motion.div
       className="fixed inset-0 z-[10000] bg-cobalt flex items-center justify-center h-dvh overflow-hidden"
-      initial={{ opacity: 1 }}
-      animate={{ opacity: isExiting ? 0 : 1 }}
-      transition={{ duration: 0.4, ease: [0.4, 0, 0.2, 1] }}
+      initial={{ opacity: 1, clipPath: 'circle(140% at 50% 45%)' }}
+      animate={
+        isExiting
+          ? shouldReduceMotion
+            ? { opacity: 0 }
+            : { clipPath: 'circle(0% at 50% 45%)' }
+          : { opacity: 1, clipPath: 'circle(140% at 50% 45%)' }
+      }
+      transition={{ duration: shouldReduceMotion ? 0.4 : EXIT_MS / 1000, ease: [0.76, 0, 0.24, 1] }}
     >
       <div className="flex flex-col gap-4 md:gap-8 lg:gap-10 text-center">
         {PHRASES.map((phrase, idx) => (
           <motion.h1
             key={phrase}
-            className="text-stone text-5xl sm:text-6xl md:text-8xl lg:text-9xl font-sans font-bold leading-tight"
+            className="text-cream font-serif font-normal leading-tight text-balance px-6 text-[clamp(2.5rem,7.5vw,7rem)]"
             initial={shouldReduceMotion ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: 0.6,
-              delay: shouldReduceMotion ? 0 : idx * 0.9,
-              ease: [0.4, 0, 0.2, 1]
-            }}
+            animate={isExiting && !shouldReduceMotion ? { opacity: 0, y: -50 } : { opacity: 1, y: 0 }}
+            transition={
+              isExiting
+                ? { duration: 0.55, delay: idx * 0.06, ease: [0.4, 0, 0.2, 1] }
+                : { duration: REVEAL, delay: shouldReduceMotion ? 0 : idx * STEP, ease: [0.4, 0, 0.2, 1] }
+            }
           >
             {phrase}
           </motion.h1>

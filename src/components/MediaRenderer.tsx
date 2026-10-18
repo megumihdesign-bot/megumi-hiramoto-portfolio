@@ -7,9 +7,13 @@ interface MediaRendererProps {
   whileHover?: any;
   transition?: any;
   loading?: 'lazy' | 'eager';
+  /** intrinsic pixel size, so the browser reserves space before the file loads */
+  width?: number;
+  height?: number;
+  fetchPriority?: 'high' | 'low' | 'auto';
 }
 
-export const MediaRenderer = ({ src, alt, className = "object-cover w-full h-full", whileHover, transition, loading = 'lazy' }: MediaRendererProps) => {
+export const MediaRenderer = ({ src, alt, className = "object-cover w-full h-full", whileHover, transition, loading = 'lazy', width, height, fetchPriority }: MediaRendererProps) => {
   const isVideo = src.toLowerCase().match(/\.(mp4|webm|ogg)$/) || src.includes('video');
 
   if (isVideo) {
@@ -36,6 +40,10 @@ export const MediaRenderer = ({ src, alt, className = "object-cover w-full h-ful
       transition={transition}
       referrerPolicy="no-referrer"
       loading={loading}
+      width={width}
+      height={height}
+      decoding="async"
+      fetchPriority={fetchPriority}
     />
   );
 };

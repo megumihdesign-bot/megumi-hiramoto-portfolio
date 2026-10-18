@@ -13,8 +13,11 @@ export const Header = () => {
     { name: 'Home', path: '/' },
     { name: 'Work', path: '/work' },
     { name: 'About', path: '/about' },
-    { name: 'Press', path: '/press' },
   ];
+
+  // Work stays active on individual project pages
+  const isActive = (path: string) =>
+    path === '/' ? location.pathname === '/' : location.pathname === path || location.pathname.startsWith(path + '/');
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const closeMenu = () => setIsMenuOpen(false);
@@ -62,38 +65,41 @@ export const Header = () => {
 
   return (
     <>
-      <header className={`fixed top-0 left-0 w-full px-8 py-6 md:px-16 flex justify-between items-baseline transition-all duration-500 ${
+      <header className={`fixed top-0 left-0 w-full px-8 py-6 md:px-16 flex justify-between items-center transition-all duration-500 ${
         isMenuOpen ? 'z-[120] bg-transparent' : 'z-[100] bg-bg/95 backdrop-blur-sm'
       }`}>
-        <Link 
-          to="/" 
+        <div className="flex items-center gap-[clamp(3rem,5.5vw,6rem)]">
+        <Link
+          to="/"
           onClick={closeMenu}
-          className="text-cobalt font-normal text-sm tracking-tight relative z-[130]"
+          aria-label="Megumi Hiramoto, home"
+          data-cursor="logo"
+          className="relative z-[130] block"
         >
-          Megumi Hiramoto
+          <img src="/M-cobalt.svg" alt="" aria-hidden="true" className="h-[13px] w-auto" />
         </Link>
-        
+
         {/* Desktop Navigation */}
-        <nav className="hidden lg:flex gap-8 items-center absolute left-1/2 -translate-x-1/2">
+        <nav className="hidden lg:flex gap-8 items-center">
           {navItems.filter(item => !item.isExternal).map((item) => (
             <Link
               key={item.path}
               to={item.path}
-              className={`text-sm tracking-widest transition-colors duration-300 hover:text-sky ${
-                location.pathname === item.path ? 'text-cobalt font-bold' : 'text-cobalt'
-              }`}
+              aria-current={isActive(item.path) ? 'page' : undefined}
+              className="link-wipe nav-underline text-[15px] font-normal text-cobalt hover:text-accent"
             >
               {item.name}
             </Link>
           ))}
         </nav>
+        </div>
 
         {/* Mobile Menu Trigger */}
         <button
           onClick={toggleMenu}
           aria-expanded={isMenuOpen}
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-          className="lg:hidden text-sm font-sans text-cobalt hover:text-sky transition-colors duration-300 relative z-[130] min-w-[4rem] text-right flex justify-end overflow-hidden"
+          className="lg:hidden text-[15px] font-sans text-cobalt hover:text-accent transition-colors duration-300 relative z-[130] min-w-[4rem] text-right flex justify-end overflow-hidden"
         >
           <AnimatePresence mode="wait">
             <motion.span
@@ -110,7 +116,7 @@ export const Header = () => {
 
         <a 
           href="mailto:megumihdesign@gmail.com" 
-          className="hidden lg:block text-sm text-cobalt"
+          className="link-wipe hidden lg:block text-[15px] text-cobalt hover:text-accent transition-colors duration-300"
         >
           megumihdesign@gmail.com
         </a>
@@ -129,7 +135,7 @@ export const Header = () => {
             <FloatingDots count={30} area="menu" />
             <nav className="flex flex-col items-center gap-8 relative z-10">
               {navItems.map((item, idx) => {
-                const isActive = location.pathname === item.path;
+                const active = isActive(item.path);
                 const isExternal = item.isExternal;
                 
                 return (
@@ -146,7 +152,7 @@ export const Header = () => {
                     {isExternal ? (
                       <a
                         href={item.path}
-                        className="text-4xl md:text-5xl font-sans text-cobalt hover:text-sky transition-colors duration-300 relative group flex items-center justify-center"
+                        className="text-4xl md:text-5xl font-sans text-cobalt hover:text-accent transition-colors duration-300 relative group flex items-center justify-center"
                       >
                         {item.name}
                       </a>
@@ -154,10 +160,9 @@ export const Header = () => {
                       <Link
                         to={item.path}
                         onClick={closeMenu}
-                        className={`text-4xl md:text-5xl font-sans transition-colors duration-300 relative group flex items-center justify-center ${
-                          isActive 
-                            ? 'text-cobalt font-bold' 
-                            : 'text-cobalt hover:text-sky'
+                        aria-current={active ? 'page' : undefined}
+                        className={`link-wipe nav-underline -mb-1 text-4xl md:text-5xl font-sans relative group flex items-center justify-center ${
+                          active ? 'text-cobalt' : 'text-cobalt hover:text-accent'
                         }`}
                       >
                         {item.name}
@@ -186,19 +191,22 @@ export const Header = () => {
 
 export const Footer = ({ isHome = false }: { isHome?: boolean }) => {
   return (
-    <footer className={`w-full px-8 pb-12 md:px-16 mt-auto ${isHome ? 'pt-0' : 'pt-24 md:pt-32'}`}>
-      <div className="border-t border-cobalt pt-8 flex flex-col md:flex-row justify-between items-center gap-6">
-        <p className="text-xs text-cobalt">
-          © 2026 Megumi Hiramoto. All Rights Reserved.
-        </p>
-        
-        <div className="flex gap-6">
-          <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-cobalt hover:opacity-60 transition-opacity">
-            <Instagram size={20} strokeWidth={1.5} />
-          </a>
-          <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-cobalt hover:opacity-60 transition-opacity">
-            <Linkedin size={20} strokeWidth={1.5} />
-          </a>
+    <footer className={`w-full mt-auto ${isHome ? 'pt-0' : 'pt-24 md:pt-32'}`}>
+      {/* Divider spans the full viewport width */}
+      <div className="border-t border-cobalt">
+        <div className="page-x py-8 pb-12 flex flex-col md:flex-row justify-between items-center gap-6">
+          <p className="text-xs text-cobalt">
+            © 2026 Megumi Hiramoto. All Rights Reserved.
+          </p>
+
+          <div className="flex gap-6 items-center">
+            <a href="https://www.instagram.com/megumihdesign/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-cobalt hover:text-accent transition-colors">
+              <Instagram size={20} strokeWidth={1.5} />
+            </a>
+            <a href="https://www.linkedin.com/in/megumi-hiramoto-design" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-cobalt hover:text-accent transition-colors">
+              <Linkedin size={20} strokeWidth={1.5} />
+            </a>
+          </div>
         </div>
       </div>
     </footer>

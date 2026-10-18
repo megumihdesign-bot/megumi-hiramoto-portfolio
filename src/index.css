@@ -1,12 +1,36 @@
-@import url('https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 @import "tailwindcss";
 
+/* Self-hosted brand fonts (files in /public/fonts) */
+@font-face {
+  font-family: "Instrument Serif";
+  src: url("/fonts/InstrumentSerif-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Instrument Serif";
+  src: url("/fonts/InstrumentSerif-Italic.ttf") format("truetype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Instrument Sans";
+  src: url("/fonts/InstrumentSans-Variable.ttf") format("truetype");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme {
-  --font-sans: "PT Sans", ui-sans-serif, system-ui, sans-serif;
-  --font-serif: "PT Serif", ui-serif, Georgia, serif;
+  --font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Instrument Serif", ui-serif, Georgia, serif;
 
   --color-bg: #EFE9DC;
+  --color-cream: #EFE9DC;
   --color-cobalt: #263A99;
+  --color-accent: #CD4F68; /* hover accent (nav, links, cursor hover) */
   --color-ink: #2D2D2D;
   --color-sky: #97B4DE;
   --color-stone: #DCD0BE;
@@ -26,12 +50,16 @@
 
 @layer base {
   body {
-    @apply bg-bg text-ink font-sans selection:bg-cobalt selection:text-stone;
+    @apply bg-bg text-cobalt font-sans selection:bg-cobalt selection:text-cream;
+    line-height: 1.6;
   }
 
   h1, h2, h3, .serif {
     @apply font-serif;
   }
+
+  /* Instrument Serif: +1% tracking */
+  .font-serif, .serif { letter-spacing: 0.01em; }
 
   /* Focus states */
   a:focus-visible, button:focus-visible {
@@ -40,6 +68,27 @@
 }
 
 @layer utilities {
+  /* Shared page margin */
+  .page-x { @apply px-8 md:px-16; }
+
+  /* Reusable type styles */
+  .type-page-title { @apply font-serif text-cobalt leading-[0.95]; font-size: clamp(4rem, 8vw, 8rem); letter-spacing: 0.01em; }
+  .type-project-title { @apply font-serif text-cobalt leading-[1.04]; font-size: clamp(2.75rem, 7vw, 7.5rem); letter-spacing: 0.01em; }
+  .type-section-heading { @apply font-serif; font-size: clamp(2rem, 3.05vw, 3.125rem); line-height: 1.08; }
+  .type-lead { @apply font-sans; font-size: clamp(1.25rem, 2.1vw, 2.1rem); line-height: 1.42; }
+  /* About intro: editorial but calmer than type-lead */
+  .type-intro { @apply font-sans; font-size: clamp(1.0625rem, 1.53vw, 1.5rem); line-height: 1.55; }
+  /* About lead sentence */
+  .type-lead-serif { @apply font-serif; font-size: clamp(2.25rem, 3.06vw, 3.25rem); line-height: 1.18; }
+  /* Supporting copy under Experience / Area of Practice entries */
+  .type-support { @apply font-sans; font-size: 0.875rem; line-height: 1.6; }
+  @media (min-width: 768px) { .type-support { font-size: 1rem; } }
+  .type-item-title { @apply font-sans font-semibold; font-size: clamp(1.125rem, 1.6vw, 1.5rem); line-height: 1.25; }
+  .type-body { @apply font-sans text-base; line-height: 1.7; }
+  .leading-body { line-height: 1.7; }
+  .type-meta { @apply font-sans; font-size: 0.8125rem; line-height: 1.7; }
+  @media (min-width: 768px) { .type-meta { font-size: 0.875rem; } }
+  .type-label { @apply font-sans text-sm; }
   .text-balance {
     text-wrap: balance;
   }
@@ -102,4 +151,136 @@
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* Focus ring on cobalt sections */
+.on-cobalt a:focus-visible,
+.on-cobalt button:focus-visible {
+  --tw-ring-color: var(--color-cream);
+  --tw-ring-offset-color: var(--color-cobalt);
+}
+
+/* Press tiles (About): circle-wipe reveal from the pointer entry point */
+.press-tile { --x: 50%; --y: 50%; }
+.press-tile__reveal {
+  clip-path: circle(0% at var(--x) var(--y));
+  transition: clip-path 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.press-tile__name { transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease; }
+.press-tile__in { opacity: 0; transform: translateY(10px); transition: opacity 0.5s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
+.press-tile__arrow { transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1); }
+.press-tile:focus-visible .press-tile__reveal,
+.press-tile[data-active="true"] .press-tile__reveal { clip-path: circle(150% at var(--x) var(--y)); }
+.press-tile:focus-visible .press-tile__in,
+.press-tile[data-active="true"] .press-tile__in { opacity: 1; transform: none; }
+.press-tile:focus-visible .press-tile__name,
+.press-tile[data-active="true"] .press-tile__name { transform: translateY(-6px); opacity: 0; }
+.press-tile:focus-visible .press-tile__arrow,
+.press-tile[data-active="true"] .press-tile__arrow { transform: translate(3px, -3px); }
+@media (hover: hover) {
+  .press-tile:hover .press-tile__reveal { clip-path: circle(150% at var(--x) var(--y)); }
+  .press-tile:hover .press-tile__in { opacity: 1; transform: none; }
+  .press-tile:hover .press-tile__name { transform: translateY(-6px); opacity: 0; }
+  .press-tile:hover .press-tile__arrow { transform: translate(3px, -3px); }
+}
+.press-tile__in:nth-child(2) { transition-delay: 0.12s; }
+.press-tile__in:nth-child(3) { transition-delay: 0.2s; }
+
+/* Wipe button: cobalt -> cream circle wipe from the pointer entry point (same mechanic as the press tiles) */
+.btn-wipe {
+  --x: 50%; --y: 50%;
+  position: relative;
+  overflow: hidden;
+  background: var(--color-cobalt);
+  color: var(--color-cream);
+}
+.btn-wipe__label { position: relative; z-index: 1; }
+/* Same box and padding as the button itself, so the duplicate label sits exactly on top */
+.btn-wipe__fill {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  padding: inherit;
+  text-align: inherit;
+  background: var(--color-cream);
+  color: var(--color-cobalt);
+  /* outline rather than border: no layout change, and it is revealed by the same wipe */
+  outline: 1px solid var(--color-cobalt);
+  outline-offset: -1px;
+  clip-path: circle(0% at var(--x) var(--y));
+  transition: clip-path 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+/* Inverted treatment (Home): cream by default, the same wipe carrying cobalt in */
+.btn-wipe--inverse {
+  background: var(--color-cream);
+  color: var(--color-cobalt);
+  outline: 1px solid var(--color-cobalt);
+  outline-offset: -1px;
+}
+.btn-wipe--inverse .btn-wipe__fill {
+  background: var(--color-cobalt);
+  color: var(--color-cream);
+  outline-color: var(--color-cream);
+}
+
+.btn-wipe:focus-visible .btn-wipe__fill { clip-path: circle(150% at var(--x) var(--y)); }
+@media (hover: hover) {
+  .btn-wipe:hover .btn-wipe__fill { clip-path: circle(150% at var(--x) var(--y)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn-wipe__fill { transition: none; }
+}
+
+/* Underline that draws in on hover */
+.link-wipe {
+  background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+  transition: background-size 0.5s cubic-bezier(0.22, 1, 0.36, 1), color 0.3s;
+}
+.link-wipe:hover, .link-wipe:focus-visible { background-size: 100% 1px; }
+/* Navigation reuses that underline; the current page keeps it drawn, so hover never doubles it */
+.link-wipe[aria-current='page'] { background-size: 100% 1px; }
+.nav-underline { padding-bottom: 4px; }
+
+/* Interactive heading words (Home H2s): lift follows the pointer */
+.rh-word {
+  display: inline-block;
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .rh-word { transition: none; transform: none !important; }
+}
+
+/* Typewriter: characters are laid out from the start, only opacity animates (no layout shift) */
+.tw-char { opacity: 0; }
+.tw-play { animation: tw-in 1ms linear forwards; }
+@keyframes tw-in { to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .tw-char { opacity: 1; animation: none; }
+}
+
+/* Underline that wipes out from the side its arrow sits on (project prev / next) */
+.uw {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: var(--uw-x, 0) 100%;
+  background-size: 0 1px;
+  padding-bottom: 3px;
+  transition: background-size 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.uw-right { --uw-x: 100%; }
+.group:hover .uw,
+.group:focus-visible .uw { background-size: 100% 1px; }
+
+/* Continuous, restrained bounce for one sentence in the About intro */
+@keyframes soft-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-3px); }
+}
+.bounce-soft {
+  display: inline-block;
+  animation: soft-bounce 2.6s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .uw { transition: none; }
+  .bounce-soft { animation: none; }
 }

@@ -1,243 +1,216 @@
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
-import { FloatingDots } from '../components/FloatingDots';
+import { useRef, useState, MouseEvent } from 'react';
+import { useInView } from 'motion/react';
+import { RevealHeading, Reveal, RevealWords, LiftWords, Typewriter } from '../components/Reveal';
+import { WipeButton } from '../components/WipeButton';
 
-const PRACTICES = [
-  "AI + Design", "Art Direction", "Branding & Brand Design", "Design Accessibility",
-  "Design Systems", "Editorial & Layout Design", "Logo Design", "Marketing Design",
-  "Social Media Design", "UX/UI Design", "Visual Design", "Web Design"
+const LEAD = "Hi, I'm Megumi. I am a multidisciplinary designer and strategic thinker based in San Francisco, CA.";
+
+const INTRO: (string | { text: string; bold?: boolean; className?: string }[])[] = [
+  "I blend strategy and storytelling to create clear, empathetic design across digital and print. My work spans brand systems, marketing, social, web, and editorial layout, always guided by modern simplicity. Pretty is fun, but pretty and useful is where I get excited.",
+  [
+    { text: "I also specialize in accessible design, from inclusive graphics to complex branded PDFs that meet WCAG, PDF/UA, and Section 508. To me, accessibility isn't an add-on. " },
+    { text: "It makes design better for everyone :)", bold: true, className: "font-semibold text-[#A8324A]" },
+  ],
+  "When I'm not designing, you'll find me salsa dancing, watching a film, or reading a good fiction novel.",
 ];
 
-const EXPERIENCE_DATA = [
-  {
-    id: 'imagine',
-    tabTitle: '01: Imagine Learning',
-    date: 'May 2021–Present',
-    role: 'Senior Graphic Designer',
-    company: 'Imagine Learning',
-    categories: 'Branding & Brand Design · Design Accessibility · Design Systems · Editorial & Layout Design · Marketing Design · Social Media Design',
-    description: [
-      'Lead brand and visual design across digital, print, sales, and marketing for multiple product lines—owning projects from concept through delivery while managing and mentoring contractors.',
-      'Build and evolve brand identities and style guides that elevate market presence and ensure visual consistency at scale.',
-      "Deliver accessible design systems and PDFs compliant with WCAG and PDF/UA standards—directly supporting state adoption approvals and expanding the brands' market reach.",
-      'Collaborate cross-functionally to translate product strategy into high-impact visual communications.'
-    ],
-    bgColor: '#DCD0BE',
-    textColor: '#263A99'
-  },
-  {
-    id: 'various',
-    tabTitle: '02: Various Clients',
-    date: 'January 2019–Present',
-    role: 'Freelance Designer',
-    company: 'Various Clients',
-    categories: 'Art Direction · Branding & Brand Design · Design Systems · Editorial & Layout Design · Logo Design · Marketing Design · Social Media Design · Visual Design · Web Design',
-    description: [
-      'Art direct brand vision and visual strategy for clients.',
-      'Execute a range of design projects—such as logos, identity systems, marketing collateral, catalogs, and social media—for brands including BeHome, Burn A Light Productions, and VelocityAI.',
-      'Provide strategic creative direction alongside execution, serving as both designer and visual partner for growing brands.'
-    ],
-    bgColor: '#FFFFFF',
-    textColor: '#263A99'
-  },
-  {
-    id: 'tappity',
-    tabTitle: '03: Tappity',
-    date: 'February 2021–May 2021',
-    role: 'Graphic Designer',
-    company: 'Tappity',
-    categories: 'Art Direction · Design Systems · Visual Design',
-    description: [
-      'Designed UI graphics and visual assets supporting product development for a children\'s education app.',
-      'Updated and maintained newsletter layouts to enhance readability and brand consistency.'
-    ],
-    bgColor: '#263A99',
-    textColor: '#FFFFFF'
-  },
-  {
-    id: 'harpers',
-    tabTitle: "04: Harper's BAZAAR Japan",
-    date: 'January 2016–July 2016',
-    role: 'Editorial Assistant',
-    company: "Harper's BAZAAR Japan, Hearst Fujingaho Co., Ltd.",
-    categories: 'Communication · Project Management',
-    description: [
-      'Managed editorial projects, digital/physical assets, and schedules for a leading fashion publication.',
-      'Supported photo shoots, client communications, and manuscript translations.'
-    ],
-    bgColor: '#97B4DE',
-    textColor: '#263A99'
-  }
+const RESUME_URL = 'https://drive.google.com/drive/folders/1m5jlyLvwV54RrQMjEzT15PeXZ1UFnBzG';
+
+const EXPERIENCE = [
+  { role: 'Senior Graphic Designer', org: 'Imagine Learning', date: 'May 2021–Present' },
+  { role: 'Freelance Designer', org: 'Various Clients', date: 'January 2019–Present' },
+  { role: 'Graphic Designer', org: 'Tappity', date: 'February 2021–May 2021' },
+  { role: 'Editorial Assistant, Harper’s BAZAAR Japan', org: 'Hearst Fujingaho CO., Ltd.', date: 'January 2016–July 2016' },
 ];
 
-export const About = () => {
-  const [isMobile, setIsMobile] = useState(false);
-  const [activeTab, setActiveTab] = useState(EXPERIENCE_DATA[0].id);
+const PRACTICE = [
+  { title: 'Brand Identity & Systems', text: 'Strategic, cohesive identities and systems that scale across every touchpoint.' },
+  { title: 'Art Direction', text: 'Distinctive, story-led direction that brings every visual together into one clear vision.' },
+  { title: 'Visual Design', text: 'From logos to layouts, refined design that makes marketing, social, and brands speak with intention and clarity.' },
+  { title: 'Accessible Design', text: 'Inclusive, standards-driven design that meets WCAG, PDF/UA, and Section 508.' },
+];
 
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
+const PRESS = [
+  {
+    name: 'Haute Living',
+    quote: '“Hiramoto’s wisdom and lessons for others include the importance of empathy in design, the dual nature of design as both creative and technical, and the necessity of accessibility and inclusivity.”',
+    url: 'https://hauteliving.com/2023/05/designing-accessibility-megumi-hiramotos-mission-change-dynamics-design-project-management/729696/',
+  },
+  {
+    name: 'SF Weekly',
+    quote: '“By emphasizing the importance of storytelling through design, she ensures that educational technology not only meets the diverse needs of its users but also inspires and engages them through meaningful visual experiences.”',
+    url: 'https://www.sfweekly.com/our_partners/storytelling-through-design-megumi-hiramotos-vision-for-meaningful-and-practical-edtech-solutions/article_661f89f4-e86f-11ed-b77c-5b5a75659632.html',
+  },
+  {
+    name: 'FLAUNT',
+    quote: '“Her focus on balancing creativity with technical know-how is a reminder that design is both an art and a science.”',
+    url: 'https://www.flaunt.com/post/megumi-hiramotos',
+  },
+  {
+    name: 'Digital Journal',
+    // source text is missing the opening quotation mark; added for consistency with the other tiles
+    quote: '“Hiramoto’s accessible design work helps ensure the fundamental accessible requirements for state or school adoptions and implementation.”',
+    url: 'https://www.digitaljournal.com/tech-science/megumi-hiramoto-is-leading-empathetic-and-accessible-design-in-edtech/article',
+  },
+];
 
-  const activeExperience = EXPERIENCE_DATA.find(exp => exp.id === activeTab)!;
+/**
+ * Press tile. Default: publication name. Hover / keyboard focus / first tap: cobalt fill with cream outline and quote
+ * (circle wipe from the pointer entry point). The whole tile is a link to the article; on touch devices the first
+ * tap reveals the quote and the second tap opens the article.
+ */
+const PressTile = ({ item }: { item: (typeof PRESS)[number] }) => {
+  const [active, setActive] = useState(false);
+
+  const setOrigin = (e: { currentTarget: HTMLElement; clientX: number; clientY: number }) => {
+    const r = e.currentTarget.getBoundingClientRect();
+    e.currentTarget.style.setProperty('--x', `${e.clientX - r.left}px`);
+    e.currentTarget.style.setProperty('--y', `${e.clientY - r.top}px`);
+  };
+
+  const onClick = (e: MouseEvent<HTMLAnchorElement>) => {
+    const coarse = window.matchMedia('(hover: none)').matches;
+    if (coarse && !active) {
+      e.preventDefault();
+      setActive(true);
+    }
+  };
 
   return (
-    <main className="pt-24 md:pt-32 lg:pt-40 pb-0 px-6 md:px-12 max-w-7xl mx-auto">
-      <div className="relative mb-12 md:mb-16 lg:mb-24">
-        <FloatingDots
-          count={20}
-          area={isMobile ? 'header-cluster' : 'header'}
+    <a
+      href={item.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      data-active={active}
+      onPointerEnter={setOrigin}
+      onClick={onClick}
+      onBlur={() => setActive(false)}
+      className="press-tile relative block aspect-square bg-cream text-cobalt overflow-hidden"
+    >
+      <span className="press-tile__name absolute inset-0 p-5 md:p-6 font-sans text-[clamp(2.25rem,4.2vw,4.25rem)] leading-[1] break-words">
+        {item.name}
+      </span>
+      <span className="press-tile__reveal absolute inset-0 bg-cobalt text-cream border border-cream flex flex-col justify-between p-5 md:p-8">
+        <span className="press-tile__in font-normal text-[clamp(0.95rem,1.35vw,1.25rem)] leading-[1.4]">{item.quote}</span>
+        <span className="press-tile__in flex items-center justify-between font-medium text-[clamp(0.95rem,1.3vw,1.125rem)]">
+          {item.name}
+          <span className="press-tile__arrow" aria-hidden="true">↗</span>
+        </span>
+      </span>
+      <span className="sr-only"> (opens article in a new tab)</span>
+    </a>
+  );
+};
+
+export const About = () => {
+  const contactRef = useRef<HTMLElement>(null);
+  const playContact = useInView(contactRef, { once: true, amount: 0.4 });
+
+  return (
+    <main>
+      {/* Introduction */}
+      <section className="bg-cream page-x pt-28 md:pt-36 pb-16 md:pb-24">
+        <RevealHeading as="h1" onLoad className="type-page-title">About</RevealHeading>
+        <RevealWords
+          text={LEAD}
+          delay={0.1}
+          stagger={0.02}
+          className="mt-14 md:mt-20 type-lead-serif text-cobalt"
         />
-        <h1 className="text-7xl md:text-9xl font-sans font-bold text-cobalt text-center relative z-10">
-          About
-        </h1>
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-y-6 lg:gap-x-12 mb-12 md:mb-16 lg:mb-24">
-        <div className="lg:col-span-12">
-          <h2 className="text-3xl md:text-4xl font-serif text-cobalt leading-tight mb-6 w-full">
-            Hi, I'm Megumi. I am a multidisciplinary designer and strategic creative thinker based in San Francisco, CA.
-          </h2>
-        </div>
-
-        <div className="lg:col-span-6 text-lg text-cobalt leading-relaxed space-y-6">
-          <p>
-            Passionate about design strategy and inclusive visual communication, I bring a strong background and skill set in creating empathetic, impactful designs with a touch of modernity and simplicity. My experience spans marketing, social media, layout design, web design, and brand design—blending strategy and visual storytelling across digital and print. I enjoy exploring AI tools to unlock new possibilities and enhance designers' productivity and creative potential.
-          </p>
-        </div>
-
-        <div className="lg:col-span-6 text-lg text-cobalt leading-relaxed space-y-6">
-          <p>
-            Beyond traditional creative design, I specialize in accessibility design—particularly contextual graphic design and complex, branded PDF design that meets the WCAG, PDF/UA, and Section 508 standards. Accessibility is not only for those who need it; it makes design more empathetic and user-friendly.
-          </p>
-          <p>
-            When I'm not designing, you'll find me salsa dancing, watching films, soaking up the sun, or cooking.
-          </p>
-        </div>
-      </div>
-
-      {/* Experience Section - Interactive Folder/Tab System */}
-      <div className="mb-24 md:mb-32">
-        <div className="w-full h-[1px] bg-cobalt/20 mb-24" />
-        <h3 className="text-sm tracking-widest text-cobalt text-center mb-16 font-bold">Experience</h3>
-
-        <div className="relative max-w-6xl mx-auto">
-          {/* Tabs */}
-          <div className="flex flex-wrap lg:flex-nowrap justify-center gap-1 lg:gap-0 relative z-10 px-4 lg:px-12">
-            {EXPERIENCE_DATA.map((exp) => (
-              <button
-                key={exp.id}
-                onClick={() => setActiveTab(exp.id)}
-                className={`px-4 py-3 lg:px-0 lg:py-4 lg:w-48 text-[10px] lg:text-xs tracking-wider transition-all duration-300 rounded-t-xl lg:rounded-t-2xl border-t border-x border-cobalt/5 ${
-                  activeTab === exp.id ? 'z-20 font-bold' : 'z-10 font-normal'
-                }`}
-                style={{
-                  backgroundColor: exp.bgColor,
-                  color: exp.textColor,
-                  marginBottom: activeTab === exp.id ? '-1px' : '0'
-                }}
-              >
-                <span className={activeTab === exp.id ? 'opacity-100' : 'opacity-60'}>
-                  {isMobile ? exp.tabTitle.split(':')[0] : exp.tabTitle}
-                </span>
-              </button>
-            ))}
-          </div>
-
-          {/* Panel */}
-          <div
-            className="relative z-0 p-8 md:p-12 lg:p-16 rounded-3xl border border-cobalt/5 shadow-sm min-h-[600px] md:min-h-[550px] lg:min-h-[480px] transition-colors duration-500"
-            style={{
-              backgroundColor: activeExperience.bgColor,
-              color: activeExperience.textColor
-            }}
-          >
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeTab}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.3 }}
-                className="space-y-6"
-              >
-                <div className="space-y-4">
-                  <span className="text-sm font-bold tracking-wider">{activeExperience.date}</span>
-                  <h4 className="text-2xl md:text-3xl font-serif">
-                    <span className="font-bold">{activeExperience.role}</span> – {activeExperience.company}
-                  </h4>
-                  <p className="text-xs md:text-sm font-normal tracking-wide leading-relaxed">
-                    {activeExperience.categories}
-                  </p>
-                </div>
-
-                <div className="w-full h-[1px]" style={{ backgroundColor: activeExperience.textColor }} />
-
-                <ul className="space-y-5 list-none pt-4">
-                  {activeExperience.description.map((item, i) => (
-                    <li key={i} className="text-base md:text-lg leading-relaxed flex items-start gap-4">
-                      <span className="flex items-center justify-center h-[1.625em] text-base md:text-xl">•</span>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </motion.div>
-            </AnimatePresence>
-          </div>
-        </div>
-      </div>
-
-      <div className="pt-12 md:pt-16 lg:pt-24 mb-12 md:mb-16 lg:mb-24 relative">
-        <FloatingDots count={50} area="practice-support" />
-        <h3 className="text-sm tracking-widest text-cobalt text-center mb-16 font-bold relative z-10">
-          Area of Practice
-        </h3>
-
-        <div className="flex flex-wrap justify-center gap-x-4 gap-y-6 max-w-5xl mx-auto relative z-10">
-          {PRACTICES.map((practice, idx) => (
-            <motion.span
-              key={practice}
-              className="px-6 py-3 bg-cobalt text-stone rounded-full text-sm font-sans"
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.05 }}
-              whileHover={{ scale: 1.05, backgroundColor: 'var(--color-ink)' }}
-            >
-              {practice}
-            </motion.span>
+        <div className="mt-7 md:mt-9 flex flex-col gap-5 md:gap-6 type-intro text-cobalt">
+          {INTRO.map((p, i) => (
+            <RevealWords key={i} text={p} delay={0.35 + i * 0.1} bounceBold />
           ))}
         </div>
-      </div>
+      </section>
 
-      {/* Education Section */}
-      <div className="pt-12 md:pt-16 lg:pt-24 mb-12 md:mb-16 lg:mb-24 text-center">
-        <h3 className="text-sm tracking-widest text-cobalt mb-16 font-bold">Education</h3>
-        <div className="space-y-16">
-          <div className="space-y-3">
-            <h4 className="text-2xl md:text-3xl font-serif text-cobalt font-bold">MA in Graphic Design & Digital Media</h4>
-            <p className="text-lg text-cobalt">Academy Art of University, San Francisco CA</p>
+      {/* Experience */}
+      <section id="experience" className="bg-cream text-cobalt page-x py-16 md:py-24 scroll-mt-20 border-y border-cobalt">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-y-10">
+          {/* Below lg the wrapper dissolves so the button drops to the end of the list, with no second copy in the DOM */}
+          <div className="lg:col-span-2 flex flex-col justify-between gap-10 max-lg:contents">
+            <RevealHeading className="type-section-heading max-lg:order-1" wrapperClassName="max-lg:order-1">Experience</RevealHeading>
+            <WipeButton href={RESUME_URL} className="self-start max-lg:justify-self-start max-lg:order-3">
+              Download resume
+            </WipeButton>
           </div>
-          <div className="space-y-3">
-            <h4 className="text-2xl md:text-3xl font-serif text-cobalt font-bold">BA in International Politics, Economics and Business</h4>
-            <p className="text-lg text-cobalt">Aoyama Gakuin University, Tokyo Japan</p>
-          </div>
+          <ul className="lg:col-span-3 flex flex-col gap-8 md:gap-10 max-lg:order-2">
+            {EXPERIENCE.map((job, i) => (
+              <li key={job.role}>
+                <Reveal delay={0.15 + i * 0.12}>
+                  <LiftWords
+                    as="h3"
+                    className="type-item-title"
+                    segments={[{ text: job.role }, { text: `/ ${job.org}`, className: 'font-normal' }]}
+                  />
+                  <p className="mt-2 type-support">{job.date}</p>
+                </Reveal>
+              </li>
+            ))}
+          </ul>
         </div>
-      </div>
+      </section>
 
-      {/* Resume Button */}
-      <div className="flex justify-center mb-32">
-        <a
-          href="https://drive.google.com/drive/folders/1m5jlyLvwV54RrQMjEzT15PeXZ1UFnBzG"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="px-12 py-5 bg-cobalt text-stone font-bold tracking-widest hover:bg-ink transition-colors duration-300 rounded-none text-sm"
-        >
-          Download Megumi's resume
-        </a>
-      </div>
+      {/* Area of Practice */}
+      <section id="practice" className="bg-cream text-cobalt page-x py-16 md:py-24 scroll-mt-20">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-y-10">
+          <RevealHeading wrapperClassName="lg:col-span-2" className="type-section-heading">Area of Practice</RevealHeading>
+          <ul className="lg:col-span-3 flex flex-col gap-8 md:gap-10">
+            {PRACTICE.map((item, i) => (
+              <li key={item.title}>
+                <Reveal delay={0.15 + i * 0.12}>
+                  <LiftWords as="h3" className="type-item-title" segments={[{ text: item.title }]} />
+                  <p className="mt-2 type-support">{item.text}</p>
+                </Reveal>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* Press */}
+      <section id="press" className="on-cobalt bg-cobalt text-cream page-x py-16 md:py-24 scroll-mt-20">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-y-10">
+          <RevealHeading wrapperClassName="lg:col-span-2" className="type-section-heading">Press Article</RevealHeading>
+          <ul className="lg:col-span-3 grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+            {PRESS.map((item, i) => (
+              <li key={item.name}>
+                <Reveal y={48} delay={(i % 2) * 0.12 + Math.floor(i / 2) * 0.05}>
+                  <PressTile item={item} />
+                </Reveal>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* Contact */}
+      <section
+        id="contact"
+        ref={contactRef}
+        className="bg-cream text-cobalt page-x min-h-[22rem] lg:min-h-[calc(100svh-15rem)] py-16 flex flex-col justify-center"
+      >
+        {/* One sequence: question, address, line, sign-off. Each starts when the previous has finished */}
+        <p className="text-[13px] md:text-[15px]">
+          <Typewriter text="Ready to build something together?" play={playContact} startDelay={120} />
+        </p>
+        <div className="mt-2 flex items-center gap-3 md:gap-6">
+          <a
+            href="mailto:megumihdesign@gmail.com"
+            className="link-wipe shrink-0 whitespace-nowrap text-lg md:text-xl font-medium hover:text-accent"
+          >
+            <Typewriter text="megumihdesign@gmail.com" play={playContact} startDelay={760} />
+          </a>
+          <span
+            aria-hidden="true"
+            className={`h-px min-w-4 flex-1 bg-cobalt origin-left transition-transform duration-[700ms] ease-[cubic-bezier(0.76,0,0.24,1)] motion-reduce:transition-none motion-reduce:scale-x-100 ${playContact ? 'scale-x-100' : 'scale-x-0'}`}
+            style={{ transitionDelay: '1220ms' }}
+          />
+          <p className="shrink-0 whitespace-nowrap text-[13px] md:text-[15px]">
+            <Typewriter text="Let’s chat!" play={playContact} startDelay={1780} />
+          </p>
+        </div>
+      </section>
     </main>
   );
 };

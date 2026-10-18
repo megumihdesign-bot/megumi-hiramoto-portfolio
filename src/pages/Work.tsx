@@ -1,33 +1,15 @@
-import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { Link } from 'react-router-dom';
-import { FloatingDots } from '../components/FloatingDots';
 import { PROJECTS } from '../constants';
 import { MediaRenderer } from '../components/MediaRenderer';
+import { RevealHeading, RevealImage } from '../components/Reveal';
 
 export const Work = () => {
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 1024);
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
   return (
-    <main className="pt-24 md:pt-32 lg:pt-40 pb-0 px-8 md:px-16 w-full">
-      <div className="relative mb-12 md:mb-16 lg:mb-24">
-        <FloatingDots 
-          count={20} 
-          area={isMobile ? 'header-cluster' : 'header'} 
-        />
-        <h1 className="text-7xl md:text-9xl font-sans font-bold text-cobalt text-center relative z-10">
-          Works
-        </h1>
-      </div>
+    <main className="pt-28 md:pt-36 pb-0 page-x w-full">
+      <RevealHeading as="h1" onLoad className="type-page-title" wrapperClassName="mb-12 md:mb-16 lg:mb-20">Work</RevealHeading>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-7 md:gap-y-8">
         {PROJECTS.map((project, idx) => (
           <motion.div
             key={project.id}
@@ -37,31 +19,33 @@ export const Work = () => {
             transition={{ duration: 0.8, delay: idx * 0.1 }}
           >
             <Link to={`/work/${project.id}`} className="group block">
-              <div className="aspect-square overflow-hidden mb-4">
-                <MediaRenderer
-                  src={project.image}
-                  alt={project.title}
-                  whileHover={{ scale: 1.03 }}
-                  transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
-                  loading={idx === 0 ? 'eager' : 'lazy'}
-                />
+              <div className="aspect-square overflow-hidden mb-3">
+                <RevealImage className="h-full w-full">
+                  <MediaRenderer
+                    src={project.cover}
+                    alt={project.cardTitle}
+                    whileHover={{ scale: 1.1 }}
+                    transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                    loading={idx === 0 ? 'eager' : 'lazy'}
+                  />
+                </RevealImage>
               </div>
               
-              <div className="relative overflow-hidden mb-2">
-                <h3 className="text-xl font-serif text-cobalt inline-block">
-                  {project.title}
-                </h3>
-                <motion.div 
-                  className="h-[1px] bg-cobalt w-full origin-left"
-                  initial={{ scaleX: 0 }}
-                  whileHover={{ scaleX: 1 }}
-                  transition={{ duration: 0.4 }}
-                />
+              {/* Title and categories roll up out of a mask as the card arrives */}
+              <div>
+                <RevealHeading as="h3" delay={0.05} className="text-[25px] font-serif text-cobalt">
+                  {project.cardTitle}
+                </RevealHeading>
+                {/* Rule draws itself under the title while the card is hovered */}
+                {/* Rule sits centred in the gap between title and categories */}
+                <div className="h-2 flex items-center" aria-hidden="true">
+                  <div className="h-[1px] bg-cobalt w-full origin-left scale-x-0 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-x-100" />
+                </div>
               </div>
-              
-              <p className="text-xs text-ink tracking-wider leading-relaxed">
-                {project.category}
-              </p>
+
+              <RevealHeading as="p" delay={0.18} className="text-[13px] text-cobalt leading-relaxed">
+                {project.categories.join(' / ')}
+              </RevealHeading>
             </Link>
           </motion.div>
         ))}

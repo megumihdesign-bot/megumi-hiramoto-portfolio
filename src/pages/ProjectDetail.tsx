@@ -1,243 +1,120 @@
-import { useParams, Link } from 'react-router-dom';
-import { motion } from 'motion/react';
+import { useParams, Link, Navigate } from 'react-router-dom';
+import { motion, useReducedMotion } from 'motion/react';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
-import { PROJECTS } from '../constants';
+import { PROJECTS } from '../data/projects';
 import { MediaRenderer } from '../components/MediaRenderer';
 import { PasswordGate } from '../components/PasswordGate';
+import { RevealHeading, RevealText, RevealMedia, Reveal } from '../components/Reveal';
+import { IMAGE_SIZES } from '../data/imageSizes';
 
+// Data-driven template: all content comes from src/data/projects.ts
 export const ProjectDetail = () => {
   const { id } = useParams();
+  const reduce = useReducedMotion();
   const base = import.meta.env.BASE_URL;
 
-  const projectData: Record<string, any> = {
-    '1': {
-      title: 'Traverse',
-      subtitle: '2021–present',
-      category: 'Design Accessibility · Design Systems · Layout Design · Marketing Design · Visual Design',
-      description: 'Traverse® is a comprehensive social studies curriculum designed to inspire curiosity and critical thinking. As a Senior Designer, I collaborated with directors to evolve a dynamic brand identity and create a wide range of on-brand design assets supporting the product, sales enablement, and marketing initiatives.',
-      images: [
-        `${base}images/Projects/1_Traverse/Traverse-1.webp`,
-        `${base}images/Projects/1_Traverse/Traverse-2.webp`,
-        `${base}images/Projects/1_Traverse/Traverse-3.webp`,
-        `${base}images/Projects/1_Traverse/Traverse-4.webp`,
-        `${base}images/Projects/1_Traverse/Traverse-5.webp`,
-        `${base}images/Projects/1_Traverse/Traverse-6.webp`,
-        `${base}images/Projects/1_Traverse/Traverse-7.webp`,
-        `${base}images/Projects/1_Traverse/Traverse-8.webp`,
-        `${base}images/Projects/1_Traverse/Traverse-9.webp`,
-        `${base}images/Projects/1_Traverse/Traverse-10.webp`,
-      ]
-    },
-    '2': {
-      title: 'Dragonfly',
-      subtitle: '2024–present',
-      category: 'Design Accessibility · Design Systems · Layout Design · Marketing Design · Social Media Design · Visual Design',
-      description: 'Dragonfly is a knowledge-rich, science-of-reading–aligned ELA curriculum. As a Senior Designer, I collaborated with directors to lead and execute visual design projects spanning product content, accessibility design strategy and production, and go-to-market campaigns.',
-      images: [
-        `${base}images/Projects/2_Dragonfly/Dragonfly-1.webp`,
-        `${base}images/Projects/2_Dragonfly/Dragonfly-2.webp`,
-        `${base}images/Projects/2_Dragonfly/Dragonfly-3.webp`,
-        `${base}images/Projects/2_Dragonfly/Dragonfly-4.webp`,
-        `${base}images/Projects/2_Dragonfly/Dragonfly-5.webp`,
-        `${base}images/Projects/2_Dragonfly/Dragonfly-6.webp`,
-        `${base}images/Projects/2_Dragonfly/Dragonfly-7.webp`,
-        `${base}images/Projects/2_Dragonfly/Dragonfly-8.webp`,
-        `${base}images/Projects/2_Dragonfly/Dragonfly-9.webp`,
-      ]
-    },
-    '3': {
-      title: 'VelocityAI',
-      subtitle: '2025',
-      category: 'UX/UI Design · Visual Design · Web Design',
-      description: 'VelocityAI provides AI-driven coaching, real-time guidance, and automated workflows for sales teams. As a Creative Designer, I explored the visual direction of the marketing website and developed high-fidelity prototypes and frameworks in Figma and Webflow to support developer implementation.',
-      images: [
-        `${base}images/Projects/3_VelocityAI/VelocityAI-1.webp`,
-        `${base}images/Projects/3_VelocityAI/VelocityAI-2.webp`,
-        `${base}images/Projects/3_VelocityAI/VelocityAI-3.webp`,
-        `${base}images/Projects/3_VelocityAI/VelocityAI-4.webp`,
-        `${base}images/Projects/3_VelocityAI/VelocityAI-5.webp`,
-      ]
-    },
-    '4': {
-      title: 'BeHome Catalog',
-      subtitle: '2023',
-      category: 'Editorial & Layout Design',
-      description: 'BeHome is a San Pablo–based retail brand offering eco-friendly home and lifestyle products sourced globally. As a freelance designer, I refreshed the Spring 2024 catalog, creating dynamic layouts and a cohesive visual presentation for the seasonal collection.',
-      images: [
-        `${base}images/Projects/4_BeHome%20Catalog/BeHomeCatalog-1.webp`,
-        `${base}images/Projects/4_BeHome%20Catalog/BeHomeCatalog-2.webp`,
-        `${base}images/Projects/4_BeHome%20Catalog/BeHomeCatalog-3.webp`,
-        `${base}images/Projects/4_BeHome%20Catalog/BeHomeCatalog-4.webp`,
-        `${base}images/Projects/4_BeHome%20Catalog/BeHomeCatalog-5.webp`,
-      ]
-    },
-    '5': {
-      title: 'StudySync',
-      subtitle: '2021–present',
-      category: 'Design Accessibility · Design Systems · Layout Design · Marketing Design · Social Media Design · Visual Design',
-      description: 'StudySync is a comprehensive English language arts curriculum designed to support daily learning and text-based knowledge building. As a Senior Designer, I partnered with directors to lead and execute visual design initiatives across product content, accessibility design strategy and production, and sales and marketing materials.',
-      images: [
-        `${base}images/Projects/5_StudySync/StudySync-1.webp`,
-        `${base}images/Projects/5_StudySync/StudySync-2.webp`,
-        `${base}images/Projects/5_StudySync/StudySync-3.webp`,
-        `${base}images/Projects/5_StudySync/StudySync-4.webp`,
-        `${base}images/Projects/5_StudySync/StudySync-5.webp`,
-        `${base}images/Projects/5_StudySync/StudySync-6.webp`,
-        `${base}images/Projects/5_StudySync/StudySync-7.gif`,
-        `${base}images/Projects/5_StudySync/StudySync-8.webp`,
-        `${base}images/Projects/5_StudySync/StudySync-9.webp`,
-        `${base}images/Projects/5_StudySync/StudySync-10.webp`,
-        `${base}images/Projects/5_StudySync/StudySync-11.webp`,
-        `${base}images/Projects/5_StudySync/StudySync-12.webp`,
-      ]
-    },
-    '6': {
-      title: 'Accessibility Across Brands',
-      subtitle: '2022–present',
-      category: 'Design Accessibility · Layout Design · Visual Design',
-      description: 'Accessible content is required in many industries under the ADA and Sections 504 and 508 of the Rehabilitation Act. As a Senior Designer specializing in the WCAG and PDF/UA compliant accessible designs—especially graphics and PDF designs—at Imagine Learning, I strategize, lead, and execute accessibility initiatives across core products including StudySync, Traverse, and Dragonfly, collaborating with and guiding a team of designers and contractors.',
-      images: [
-        `${base}images/Projects/6_Accessibility%20Across%20Brands/Accessibility-1.webp`,
-        `${base}images/Projects/6_Accessibility%20Across%20Brands/Accessibility-2.webp`,
-        `${base}images/Projects/6_Accessibility%20Across%20Brands/Accessibility-3.webp`,
-        `${base}images/Projects/6_Accessibility%20Across%20Brands/Accessibility-4.webp`,
-        `${base}images/Projects/6_Accessibility%20Across%20Brands/Accessibility-5.webp`,
-        `${base}images/Projects/6_Accessibility%20Across%20Brands/Accessibility-6.webp`,
-        `${base}images/Projects/6_Accessibility%20Across%20Brands/Accessibility-7.webp`,
-      ]
-    },
-    '7': {
-      title: 'Micuna Kitchen',
-      subtitle: '2020',
-      category: 'Design Systems · Social Media Design · Visual Design',
-      description: 'Micuna Kitchen is a San Francisco–based provider of vegan dining options. As a freelance designer, I conceptualized and produced a series of brand materials including business cards, flyers, menus, and social media graphics.',
-      images: [
-        `${base}images/Projects/7_Micuna%20Kitchen/MicunaKitchen-1.webp`,
-        `${base}images/Projects/7_Micuna%20Kitchen/MicunaKitchen-2.webp`,
-        `${base}images/Projects/7_Micuna%20Kitchen/MicunaKitchen-3.webp`,
-        `${base}images/Projects/7_Micuna%20Kitchen/MicunaKitchen-4.webp`,
-        `${base}images/Projects/7_Micuna%20Kitchen/MicunaKitchen-5.webp`,
-      ]
-    },
-    '8': {
-      title: 'Burn A Light Social Media Campaign',
-      subtitle: '2024–present',
-      category: 'Social Media Design',
-      description: 'Burn A Light is a San Francisco–based social impact production studio founded by critically-acclaimed filmmaker Apo W. Bazidi. As a designer and creative consultant, I contributed to social media campaigns that supported brand positioning and film promotion.',
-      images: [
-        `${base}images/Projects/8_Burn%20A%20Light%20SocialMedia%20Campaign/BurnALight-1.webp`,
-        `${base}images/Projects/8_Burn%20A%20Light%20SocialMedia%20Campaign/BurnALight-2.webp`,
-        `${base}images/Projects/8_Burn%20A%20Light%20SocialMedia%20Campaign/BurnALight-3.webp`,
-        `${base}images/Projects/8_Burn%20A%20Light%20SocialMedia%20Campaign/BurnALight-4.webp`,
-      ]
-    },
-    '9': {
-      title: 'American Industries',
-      subtitle: '2020, Graduate School Project, Academy of Art University',
-      category: 'Branding & Brand Design · Design Systems · Visual Design',
-      description: "In this academic rebranding project, students were tasked with reimagining a declining brand. Drawing on my background and interest in fashion media and journalism, I rebranded American Apparel as American Industries, developing a new identity system and visual language while preserving the brand's original spirit.",
-      images: [
-        `${base}images/Projects/9_American%20Industries/American%20Industries-1.webp`,
-        `${base}images/Projects/9_American%20Industries/American%20Industries-2.webp`,
-        `${base}images/Projects/9_American%20Industries/American%20Industries-3.webp`,
-        `${base}images/Projects/9_American%20Industries/American%20Industries-4.webp`,
-        `${base}images/Projects/9_American%20Industries/American%20Industries-5.webp`,
-        `${base}images/Projects/9_American%20Industries/American%20Industries-6.webp`,
-        `${base}images/Projects/9_American%20Industries/American%20Industries-7.webp`,
-        `${base}images/Projects/9_American%20Industries/American%20Industries-8.webp`,
-        `${base}images/Projects/9_American%20Industries/American%20Industries-9.webp`,
-        `${base}images/Projects/9_American%20Industries/American%20Industries-10.webp`,
-        `${base}images/Projects/9_American%20Industries/American%20Industries-11.webp`,
-      ]
-    },
-    'default': {
-      title: 'Design Project',
-      subtitle: 'Strategic Visual Communication & Brand Storytelling',
-      category: 'Brand Design · Visual Design · Strategy',
-      description: 'This project explores the intersection of strategic thinking and visual elegance. Through a deep focus on craft and user experience, we created a solution that resonates with the target audience and achieves business goals.',
-      images: [
-        'https://picsum.photos/seed/design1/1600/900',
-        'https://picsum.photos/seed/design2/1600/900',
-        'https://picsum.photos/seed/design3/1600/900',
-      ]
-    }
+  const currentIndex = PROJECTS.findIndex((p) => p.id.toString() === id);
+  if (currentIndex < 0) return <Navigate to="/work" replace />;
+  const project = PROJECTS[currentIndex];
+
+  // Previous / Next navigation (wraps around)
+  const prevProject = PROJECTS[(currentIndex - 1 + PROJECTS.length) % PROJECTS.length];
+  const nextProject = PROJECTS[(currentIndex + 1) % PROJECTS.length];
+
+  // First image sits right under the title block; description follows, then the rest.
+  // Projects without images get neutral placeholders.
+  const slots: (string | null)[] = project.images.length ? project.images : [null, null, null, null];
+  const [hero, ...rest] = slots;
+  const chips = project.info.split(' / ');
+
+  const renderSlot = (src: string | null, idx: number) => {
+    // Intrinsic size reserves the space before the file loads, so nothing jumps and the
+    // reveal observer measures real positions on first paint.
+    const size = src ? IMAGE_SIZES[src.slice(base.length)] : undefined;
+    return (
+      // No hover scaling on project pages; the reveal is a fade with a small settle.
+      <RevealMedia key={src ?? `ph-${idx}`} eager={idx === 0} delay={idx === 0 ? 0.2 : 0}>
+        {src ? (
+          <MediaRenderer
+            src={src}
+            alt={`${project.title} visual ${idx + 1}`}
+            className="w-full h-auto block"
+            width={size?.w}
+            height={size?.h}
+            loading={idx === 0 ? 'eager' : 'lazy'}
+            fetchPriority={idx === 0 ? 'high' : undefined}
+          />
+        ) : (
+          <div className="w-full aspect-[16/9] bg-[#D9D9D9]" aria-hidden="true" />
+        )}
+      </RevealMedia>
+    );
   };
 
-  const project = projectData[id as string] || projectData.default;
-
-  const protectedProjects = ['Traverse', 'Dragonfly', 'StudySync'];
-  const isProtected = protectedProjects.includes(project.title);
-
-  // Navigation Logic
-  const currentIndex = PROJECTS.findIndex(p => p.id.toString() === id);
-  const prevIndex = (currentIndex - 1 + PROJECTS.length) % PROJECTS.length;
-  const nextIndex = (currentIndex + 1) % PROJECTS.length;
-  
-  const prevProject = PROJECTS[prevIndex];
-  const nextProject = PROJECTS[nextIndex];
-
   return (
-    <PasswordGate isProtected={isProtected}>
-      <main className="pt-40 pb-0 px-6 md:px-12 max-w-7xl mx-auto">
-        <div className="mb-8">
-          <motion.h1 
-            className="text-4xl md:text-7xl font-serif text-cobalt mb-4"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
+    <PasswordGate isProtected={!!project.isProtected}>
+      <main className="pt-28 md:pt-36 pb-0 page-x overflow-x-clip">
+        {/* Title block: long titles wrap naturally in the left column; subtitle sits right, centered on the divider */}
+        <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] lg:gap-x-10 gap-y-5 lg:gap-y-8">
+          <RevealHeading
+            as="h1"
+            onLoad
+            wrapperClassName="lg:col-start-1 lg:row-start-1"
+            className="type-project-title text-balance"
           >
             {project.title}
-          </motion.h1>
-          <motion.p 
-            className="text-lg text-cobalt font-bold"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3 }}
+          </RevealHeading>
+
+          <RevealText
+            delay={0.5}
+            className="lg:col-start-2 lg:row-start-2 self-center font-sans text-[clamp(1.25rem,1.9vw,1.9rem)] leading-[1.25] text-cobalt"
           >
             {project.subtitle}
-          </motion.p>
-        </div>
+          </RevealText>
 
-        <div className="border-t border-cobalt/20 pt-8 pb-16 grid grid-cols-1 lg:grid-cols-12 gap-12">
-          <div className="lg:col-span-4">
-            <p className="text-lg text-ink leading-relaxed">
-              {project.category}
-            </p>
-          </div>
-          <div className="lg:col-span-8">
-            <p className="text-lg text-ink leading-relaxed">
-              {project.description}
-            </p>
-          </div>
-        </div>
-
-        <div className="space-y-12 mb-16">
-          {project.images.map((img: string, idx: number) => (
+          <div className="lg:col-start-1 lg:row-start-2 self-center" aria-hidden="true">
             <motion.div
-              key={idx}
-              className=""
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 1 }}
-            >
-              <MediaRenderer 
-                src={img} 
-                alt={`${project.title} visual ${idx + 1}`} 
-                className="w-full h-auto block"
-              />
-            </motion.div>
-          ))}
+              className="h-px bg-cobalt origin-left"
+              initial={reduce ? false : { scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ duration: 1.2, ease: [0.76, 0, 0.24, 1], delay: 0.4 }}
+            />
+          </div>
+
+          <RevealText delay={0.6} className="lg:col-start-1 lg:row-start-3 -mt-4 lg:-mt-7 text-[14px] md:text-[16px] font-normal text-cobalt">
+            {project.keywords.join(' / ')}
+          </RevealText>
         </div>
 
-        <div className="flex justify-between items-center pt-12">
-          <Link to={`/work/${prevProject.id}`} className="flex items-center gap-2 text-cobalt hover:opacity-60 transition-opacity group">
+        <div className="mt-12 md:mt-20 lg:mt-28 flex flex-col gap-6 md:gap-8">
+          {renderSlot(hero, 0)}
+
+          {/* Cobalt panel: starts ~21% in, bleeds off the right edge of the viewport */}
+          <Reveal className="on-cobalt bg-cobalt text-cream -mr-8 md:-mr-16 pr-8 md:pr-[5.5rem] pl-6 md:pl-[4.5rem] py-12 md:py-20 lg:ml-[21%] my-4 md:my-8 lg:my-12">
+            <ul aria-label="Role, organization, and date" className="flex flex-wrap gap-3 md:gap-4 mb-6">
+              {chips.map((c, i) => (
+                <li
+                  key={c}
+                  className={`text-[13px] md:text-[15px] px-5 py-2 border border-cream ${i === 0 ? 'text-cream' : 'bg-cream text-cobalt'}`}
+                >
+                  {c}
+                </li>
+              ))}
+            </ul>
+            <p className="text-[16px] md:text-[18px] font-normal leading-body text-cream">{project.description}</p>
+          </Reveal>
+
+          {rest.map((src, i) => renderSlot(src, i + 1))}
+        </div>
+
+        <div className="flex justify-between items-center pt-12 pb-4 mt-4">
+          <Link to={`/work/${prevProject.id}`} className="flex items-center gap-2 text-cobalt hover:text-accent transition-colors duration-300 group">
             <ArrowLeft size={20} className="group-hover:-translate-x-1 transition-transform" />
-            <span>Previous Project</span>
+            <span className="uw">Previous Project</span>
           </Link>
-          
-          <Link to={`/work/${nextProject.id}`} className="flex items-center gap-2 text-cobalt hover:opacity-60 transition-opacity group">
-            <span>Next Project</span>
+
+          <Link to={`/work/${nextProject.id}`} className="flex items-center gap-2 text-cobalt hover:text-accent transition-colors duration-300 group">
+            <span className="uw uw-right">Next Project</span>
             <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>

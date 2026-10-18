@@ -1,5 +1,6 @@
 import { useState, useEffect, ReactNode, FormEvent } from 'react';
 import { motion } from 'motion/react';
+import { WipeButton } from './WipeButton';
 
 interface PasswordGateProps {
   children: ReactNode;
@@ -62,12 +63,7 @@ export const PasswordGate = ({ children, isProtected }: PasswordGateProps) => {
               </p>
             )}
           </div>
-          <button
-            type="submit"
-            className="w-full py-4 bg-cobalt text-stone font-bold tracking-widest hover:bg-ink transition-colors duration-300"
-          >
-            SUBMIT
-          </button>
+          <WipeButton type="submit" className="w-full">Submit</WipeButton>
         </form>
       </motion.div>
     </div>

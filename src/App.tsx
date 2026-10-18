@@ -1,7 +1,7 @@
 import { useState, useEffect, ReactNode } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 
-import { AnimatePresence, motion } from 'motion/react';
+import { AnimatePresence, MotionConfig, motion } from 'motion/react';
 
 import { CustomCursor } from './components/CustomCursor';
 import { Header, Footer } from './components/Navigation';
@@ -10,7 +10,6 @@ import { IntroSequence } from './components/IntroSequence';
 import { Home } from './pages/Home';
 import { Work } from './pages/Work';
 import { About } from './pages/About';
-import { Press } from './pages/Press';
 import { ProjectDetail } from './pages/ProjectDetail';
 
 const ScrollToTop = () => {
@@ -33,8 +32,8 @@ const ScrollToTop = () => {
 const PageWrapper = ({ children }: { children: ReactNode }) => {
   return (
     <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
     >
@@ -44,20 +43,23 @@ const PageWrapper = ({ children }: { children: ReactNode }) => {
 };
 
 export default function App() {
-  const [showIntro, setShowIntro] = useState(() => {
+  // playing: content hidden behind the intro; exiting: the intro lifts away while the page animates in; done: intro unmounted
+  const [introPhase, setIntroPhase] = useState<'playing' | 'exiting' | 'done'>(() => {
     if (typeof window !== 'undefined') {
-      return !sessionStorage.getItem('introPlayed');
+      return sessionStorage.getItem('introPlayed') ? 'done' : 'playing';
     }
-    return true;
+    return 'playing';
   });
+  const showIntro = introPhase === 'playing';
 
   const handleIntroComplete = () => {
-    setShowIntro(false);
+    setIntroPhase('done');
     sessionStorage.setItem('introPlayed', 'true');
   };
 
   return (
     <Router>
+     <MotionConfig reducedMotion="user">
       <ScrollToTop />
       <CustomCursor />
 
@@ -71,18 +73,16 @@ export default function App() {
       </motion.div>
 
       <AnimatePresence>
-        {showIntro && (
-          <IntroSequence key="intro" onComplete={handleIntroComplete} />
+        {introPhase !== 'done' && (
+          <IntroSequence key="intro" onExitStart={() => setIntroPhase('exiting')} onComplete={handleIntroComplete} />
         )}
       </AnimatePresence>
+     </MotionConfig>
     </Router>
   );
 }
 
 const AppContent = ({ showIntro }: { showIntro: boolean }) => {
-  const location = useLocation();
-  const isHomePage = location.pathname === '/';
-
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
@@ -93,13 +93,12 @@ const AppContent = ({ showIntro }: { showIntro: boolean }) => {
           <Route path="/work" element={<PageWrapper><Work /></PageWrapper>} />
           <Route path="/work/:id" element={<PageWrapper><ProjectDetail /></PageWrapper>} />
           <Route path="/about" element={<PageWrapper><About /></PageWrapper>} />
-          <Route path="/press" element={<PageWrapper><Press /></PageWrapper>} />
+          {/* Press now lives on the About page */}
+          <Route path="/press" element={<Navigate to="/about#press" replace />} />
         </Routes>
       </AnimatePresence>
 
-      <div className={isHomePage ? "hidden lg:block fixed bottom-0 left-0 w-full z-[110]" : ""}>
-        <Footer isHome={isHomePage} />
-      </div>
+      <Footer />
     </div>
   );
 };
