@@ -40,7 +40,7 @@ export const PROJECTS: Project[] = [
     info: 'Senior Designer / Imagine Learning / 2021–2025',
     description: 'Traverse® is a social studies curriculum built to spark curiosity and critical thinking. Partnering with creative directors, I evolved its brand identity into a system that scales across product, sales, and marketing. The work supported two state adoptions, followed by the expansion of the Spanish edition. Beyond core design execution, I project-managed a team of freelance designers for interactive media assets, establishing SOPs and documentation to streamline future production.',
     cover: `${base}images/Hero/Project_1.webp`,
-    images: seq('1_Traverse', 'Traverse', 10),
+    images: seq('1_Traverse', 'Traverse', 11),
     isProtected: true,
   },
   {
@@ -90,7 +90,7 @@ export const PROJECTS: Project[] = [
     info: 'Senior Designer / Imagine Learning / 2021–Present',
     description: 'StudySync is an ELA curriculum built around daily, text-based learning. I worked on visual design across product content, accessibility, and sales and marketing materials—especially for National 2027 and California 2028 editions. As a designer with both accessibility expertise and cross-functional knowledge, I bring accessibility solutions that go beyond design. I build reusable templates that scale to new state adoptions and customized state editions.',
     cover: `${base}images/Hero/Project_5.webp`,
-    images: seq('5_StudySync', 'StudySync', 12, { 7: 'gif' }),
+    images: seq('5_StudySync', 'StudySync', 10, { 5: 'gif' }),
     isProtected: true,
   },
   {
@@ -115,7 +115,7 @@ export const PROJECTS: Project[] = [
     info: 'Freelance Designer / Micuna Kitchen / 2020',
     description: 'Micuna Kitchen serves vegan food in San Francisco. With only a logo to work from, I built its everyday brand materials, including business cards, menus, flyers, and social graphics, into one consistent system.',
     cover: `${base}images/Hero/Project_7.webp`,
-    images: seq('7_Micuna%20Kitchen', 'MicunaKitchen', 5),
+    images: seq('7_Micuna%20Kitchen', 'MicunaKitchen', 6),
   },
   {
     id: 8,

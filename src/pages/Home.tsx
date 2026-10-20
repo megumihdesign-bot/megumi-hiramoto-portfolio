@@ -25,16 +25,33 @@ export const Home = () => {
           Megumi Hiramoto
         </RevealHeading>
 
-        {/* Portfolio reel placeholder (Remotion file to be dropped in here) */}
+        {/* Portfolio reel (rendered from the Remotion project in ~/Claude/Portfolio Reel) */}
         <div className="relative mt-10 md:mt-14">
           <motion.div ref={reelRef} style={reduce ? undefined : { scale: reelScale }} className="relative">
             <RevealImage delay={0.2}>
-              <div
-                role="img"
-                aria-label="Portfolio reel (coming soon)"
-                data-slot="portfolio-reel"
-                className="w-full aspect-video bg-white"
-              />
+              <div data-slot="portfolio-reel" className="w-full aspect-video bg-white overflow-hidden">
+                {reduce ? (
+                  <img
+                    src="/videos/reel-poster.jpg"
+                    alt="Portfolio reel: brand identity, art direction and visual design work"
+                    className="w-full h-full object-cover"
+                    width={1920}
+                    height={1080}
+                  />
+                ) : (
+                  <video
+                    src="/videos/reel.mp4"
+                    poster="/videos/reel-poster.jpg"
+                    className="w-full h-full object-cover"
+                    aria-label="Portfolio reel: brand identity, art direction and visual design work"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    preload="metadata"
+                  />
+                )}
+              </div>
             </RevealImage>
           </motion.div>
         </div>

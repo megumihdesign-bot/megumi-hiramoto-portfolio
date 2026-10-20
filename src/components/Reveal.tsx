@@ -145,6 +145,9 @@ export const RevealHeading = ({
         onPointerLeave={interactive ? resetWords : undefined}
       >
         <motion.span
+          // Rebuild when the text changes (e.g. Previous/Next between project pages), so words that
+          // mount after the parent has already revealed are not left stuck in their hidden state.
+          key={children}
           className="inline"
           initial="hidden"
           {...trigger}

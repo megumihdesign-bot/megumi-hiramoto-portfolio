@@ -53,7 +53,7 @@ export const ProjectDetail = () => {
 
   return (
     <PasswordGate isProtected={!!project.isProtected}>
-      <main className="pt-28 md:pt-36 pb-0 page-x overflow-x-clip">
+      <main key={project.id} className="pt-28 md:pt-36 pb-0 page-x overflow-x-clip">
         {/* Title block: long titles wrap naturally in the left column; subtitle sits right, centered on the divider */}
         <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] lg:gap-x-10 gap-y-5 lg:gap-y-8">
           <RevealHeading

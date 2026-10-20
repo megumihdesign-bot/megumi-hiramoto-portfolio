@@ -16,6 +16,25 @@ const SPARKS = Array.from({ length: 16 }, (_, i) => {
   };
 });
 
+// A text element only counts as hovered while the pointer is over its actual copy. Headings and
+// paragraphs are block-level and usually wider than their text, so testing the element's box alone
+// would turn the cursor red over empty space.
+const textHitAt = (root: HTMLElement, x: number, y: number, directOnly: boolean) => {
+  const PAD = 2;
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+  const range = document.createRange();
+  let node: Node | null;
+  while ((node = walker.nextNode())) {
+    if (directOnly && node.parentNode !== root) continue;
+    if (!node.textContent?.trim()) continue;
+    range.selectNodeContents(node);
+    for (const r of Array.from(range.getClientRects())) {
+      if (x >= r.left - PAD && x <= r.right + PAD && y >= r.top - PAD && y <= r.bottom + PAD) return true;
+    }
+  }
+  return false;
+};
+
 export const CustomCursor = () => {
   const cursorRef = useRef<HTMLDivElement>(null);
   const [isHovering, setIsHovering] = useState(false);
@@ -28,6 +47,8 @@ export const CustomCursor = () => {
   const mousePos = useRef({ x: 0, y: 0 });
   const cursorPos = useRef({ x: 0, y: 0 });
   const rafId = useRef<number | null>(null);
+  // Set while the pointer is on a text element that is not otherwise interactive, so mousemove can re-test it
+  const textCandidate = useRef<{ el: HTMLElement; directOnly: boolean } | null>(null);
 
   useEffect(() => {
     // Disable on touch devices
@@ -52,6 +73,10 @@ export const CustomCursor = () => {
 
     const onMouseMove = (e: MouseEvent) => {
       mousePos.current = { x: e.clientX, y: e.clientY };
+
+      // Moving within one text block: re-test whether the pointer is over its copy
+      const tc = textCandidate.current;
+      if (tc) setIsHovering(textHitAt(tc.el, e.clientX, e.clientY, tc.directOnly));
       
       // Initialize cursorPos on first move to prevent jump from (0,0)
       if (!isVisible) {
@@ -93,8 +118,8 @@ export const CustomCursor = () => {
       const isPointer = style.cursor === 'pointer';
       const isInteractive = target.closest('a, button, [role="button"], .clickable');
       
-      // 2. Images
-      const isImage = target.tagName === 'IMG' || target.closest('img');
+      // 2. Images and video (the Home reel is a <video>)
+      const isImage = target.tagName === 'IMG' || target.tagName === 'VIDEO' || target.closest('img');
       
       // 3. Visible Text Elements (p, h1-h6, span, navigation text, etc.)
       const textTags = ['P', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'SPAN', 'LI', 'LABEL', 'A', 'SMALL', 'STRONG', 'EM', 'B', 'I', 'NAV', 'MENU'];
@@ -105,11 +130,10 @@ export const CustomCursor = () => {
         node => node.nodeType === Node.TEXT_NODE && node.textContent?.trim().length! > 0
       );
 
-      if (isPointer || isInteractive || isImage || isTextTag || hasDirectText) {
-        setIsHovering(true);
-      } else {
-        setIsHovering(false);
-      }
+      const boxHover = !!(isPointer || isInteractive || isImage);
+      const isTextCandidate = !boxHover && (isTextTag || hasDirectText);
+      textCandidate.current = isTextCandidate ? { el: target, directOnly: !isTextTag } : null;
+      setIsHovering(boxHover || (isTextCandidate && textHitAt(target, e.clientX, e.clientY, !isTextTag)));
     };
 
     const onMouseDown = (e: MouseEvent) => {
