@@ -271,14 +271,18 @@
 .group:hover .uw,
 .group:focus-visible .uw { background-size: 100% 1px; }
 
-/* Continuous, restrained bounce for one sentence in the About intro */
+/* Ripple for the emphasised sentence in the About intro: a quick lift-and-tilt travels word by word,
+   then the line rests before the next pass. Per-word delay is set inline (see RevealWords). */
 @keyframes soft-bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-3px); }
+  0%, 38%, 100% { transform: translateY(0) rotate(0) scale(1); }
+  10% { transform: translateY(-7px) rotate(-2deg) scale(1.06); }
+  22% { transform: translateY(1px) rotate(0.6deg) scale(0.995); }
+  30% { transform: translateY(-2px) rotate(0) scale(1.01); }
 }
 .bounce-soft {
   display: inline-block;
-  animation: soft-bounce 2.6s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+  transform-origin: 50% 100%;
+  animation: soft-bounce 3.4s cubic-bezier(0.34, 1.4, 0.5, 1) infinite;
 }
 @media (prefers-reduced-motion: reduce) {
   .uw { transition: none; }

@@ -3,13 +3,13 @@ import { useInView } from 'motion/react';
 import { RevealHeading, Reveal, RevealWords, LiftWords, Typewriter } from '../components/Reveal';
 import { WipeButton } from '../components/WipeButton';
 
-const LEAD = "Hi, I'm Megumi. I am a multidisciplinary designer and strategic thinker based in San Francisco, CA.";
+const LEAD = "Hi, I'm Megumi. I am a multidisciplinary designer based in San Francisco, CA.";
 
 const INTRO: (string | { text: string; bold?: boolean; className?: string }[])[] = [
   "I blend strategy and storytelling to create clear, empathetic design across digital and print. My work spans brand systems, marketing, social, web, and editorial layout, always guided by modern simplicity. Pretty is fun, but pretty and useful is where I get excited.",
   [
     { text: "I also specialize in accessible design, from inclusive graphics to complex branded PDFs that meet WCAG, PDF/UA, and Section 508. To me, accessibility isn't an add-on. " },
-    { text: "It makes design better for everyone :)", bold: true, className: "font-semibold text-[#A8324A]" },
+    { text: "It makes design better for everyone.", bold: true, className: "font-semibold text-[#A8324A]" },
   ],
   "When I'm not designing, you'll find me salsa dancing, watching a film, or reading a good fiction novel.",
 ];

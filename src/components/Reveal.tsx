@@ -233,7 +233,7 @@ export const RevealWords = ({
   className?: string;
   delay?: number;
   stagger?: number;
-  /** once the reveal finishes, an emphasised run keeps a soft continuous bounce */
+  /** once the reveal finishes, an emphasised run repeats a word-by-word ripple */
   bounceBold?: boolean;
 }) => {
   const reduce = useReducedMotion();
@@ -251,7 +251,7 @@ export const RevealWords = ({
       </p>
     );
 
-  // `bounceAt` gives a word its own phase and pace, so the sentence drifts rather than pulsing as a block
+  // `bounceAt` staggers each word's start so a ripple travels across the emphasised sentence
   const word = (w: string, key: string, bounceAt?: number) => (
     <motion.span
       key={key}
@@ -267,8 +267,7 @@ export const RevealWords = ({
         <span
           className="bounce-soft"
           style={{
-            animationDelay: `${-(bounceAt * 0.41).toFixed(2)}s`,
-            animationDuration: `${2.3 + (bounceAt % 3) * 0.35}s`,
+            animationDelay: `${(bounceAt * 0.09).toFixed(2)}s`,
           }}
         >
           {w}
