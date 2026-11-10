@@ -9,7 +9,7 @@ const INTRO: (string | { text: string; bold?: boolean; className?: string }[])[]
   "I blend strategy and storytelling to create clear, empathetic design across digital and print. My work spans brand systems, marketing, social, web, and editorial layout, always guided by modern simplicity. Pretty is fun, but pretty and useful is where I get excited.",
   [
     { text: "I also specialize in accessible design, from inclusive graphics to complex branded PDFs that meet WCAG, PDF/UA, and Section 508. To me, accessibility isn't an add-on. " },
-    { text: "It makes design better for everyone.", bold: true, className: "font-semibold text-[#A8324A]" },
+    { text: "It makes design better for everyone.", bold: true, className: "font-bold" },
   ],
   "When I'm not designing, you'll find me salsa dancing, watching a film, or reading a good fiction novel.",
 ];

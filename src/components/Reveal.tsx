@@ -267,7 +267,7 @@ export const RevealWords = ({
         <span
           className="bounce-soft"
           style={{
-            animationDelay: `${(bounceAt * 0.09).toFixed(2)}s`,
+            animationDelay: `${(bounceAt * 0.1).toFixed(2)}s`,
           }}
         >
           {w}
