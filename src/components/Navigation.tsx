@@ -80,13 +80,13 @@ export const Header = () => {
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden lg:flex gap-8 items-center">
+        <nav className="hidden lg:flex items-center gap-[1.7rem] -ml-[1.1rem] -my-2">
           {navItems.filter(item => !item.isExternal).map((item) => (
             <Link
               key={item.path}
               to={item.path}
               aria-current={isActive(item.path) ? 'page' : undefined}
-              className="link-wipe nav-underline text-[15px] font-normal text-cobalt hover:text-accent"
+              className="nav-pill text-[15px] font-normal text-cobalt hover:text-accent"
             >
               {item.name}
             </Link>
@@ -161,7 +161,7 @@ export const Header = () => {
                         to={item.path}
                         onClick={closeMenu}
                         aria-current={active ? 'page' : undefined}
-                        className={`link-wipe nav-underline -mb-1 text-4xl md:text-5xl font-sans relative group flex items-center justify-center ${
+                        className={`nav-pill !px-8 !py-1 text-4xl md:text-5xl font-sans relative group flex items-center justify-center ${
                           active ? 'text-cobalt' : 'text-cobalt hover:text-accent'
                         }`}
                       >
@@ -190,22 +190,27 @@ export const Header = () => {
 };
 
 export const Footer = ({ isHome = false }: { isHome?: boolean }) => {
+  // The Home page ends on a cobalt section, so the footer sits close under it
+  const flush = isHome || useLocation().pathname === '/';
   return (
-    <footer className={`w-full mt-auto ${isHome ? 'pt-0' : 'pt-24 md:pt-32'}`}>
-      {/* Divider spans the full viewport width */}
-      <div className="border-t border-cobalt">
-        <div className="page-x py-8 pb-12 flex flex-col md:flex-row justify-between items-center gap-6">
-          <p className="text-xs text-cobalt">
+    <footer className={`w-full mt-auto ${flush ? 'pt-0' : 'pt-24 md:pt-32'}`}>
+      {/* Outlined pill; the padding is even top and bottom and every item is centred on the pill's midline */}
+      <div className="page-x pt-6 pb-6 md:pt-8 md:pb-8">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-5 md:gap-6 rounded-[2rem] md:rounded-full border border-cobalt px-8 md:px-12 py-6 md:py-7">
+          <p className="text-xs text-cobalt leading-none">
             © 2026 Megumi Hiramoto. All Rights Reserved.
           </p>
 
           <div className="flex gap-6 items-center">
-            <a href="https://www.instagram.com/megumihdesign/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-cobalt hover:text-accent transition-colors">
+            <a href="https://www.instagram.com/megumihdesign/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="flex text-cobalt hover:text-accent transition-colors">
               <Instagram size={20} strokeWidth={1.5} />
             </a>
-            <a href="https://www.linkedin.com/in/megumi-hiramoto-design" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-cobalt hover:text-accent transition-colors">
+            <a href="https://www.linkedin.com/in/megumi-hiramoto-design" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="flex text-cobalt hover:text-accent transition-colors">
               <Linkedin size={20} strokeWidth={1.5} />
             </a>
+            <Link to="/" aria-label="Megumi Hiramoto, home" data-cursor="logo" className="flex ml-2">
+              <img src="/M-cobalt.svg" alt="" aria-hidden="true" className="h-[13px] w-auto" />
+            </Link>
           </div>
         </div>
       </div>

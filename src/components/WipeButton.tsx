@@ -20,8 +20,8 @@ export const WipeButton = ({
   /** external link (opens in a new tab) */
   href?: string;
   type?: 'button' | 'submit';
-  /** 'inverse' starts cream with a cobalt outline and wipes to cobalt */
-  variant?: 'default' | 'inverse';
+  /** 'inverse' starts cream with a cobalt outline and wipes to cobalt; 'onCobalt' (for cobalt sections) starts as a cream outline and wipes to a cream fill */
+  variant?: 'default' | 'inverse' | 'onCobalt';
   children: ReactNode;
   className?: string;
 }) => {
@@ -32,7 +32,7 @@ export const WipeButton = ({
   };
 
   const common = {
-    className: `btn-wipe ${variant === 'inverse' ? 'btn-wipe--inverse' : ''} inline-block text-sm font-medium px-6 py-4 text-center ${className}`,
+    className: `btn-wipe ${variant === 'inverse' ? 'btn-wipe--inverse' : variant === 'onCobalt' ? 'btn-wipe--on-cobalt' : ''} inline-block text-sm font-medium px-6 py-4 text-center ${className}`,
     onPointerEnter: setOrigin,
     onPointerLeave: setOrigin,
   };

@@ -74,7 +74,7 @@
   /* Reusable type styles */
   .type-page-title { @apply font-serif text-cobalt leading-[0.95]; font-size: clamp(4rem, 8vw, 8rem); letter-spacing: 0.01em; }
   .type-project-title { @apply font-serif text-cobalt leading-[1.04]; font-size: clamp(2.75rem, 7vw, 7.5rem); letter-spacing: 0.01em; }
-  .type-section-heading { @apply font-serif; font-size: clamp(2rem, 3.05vw, 3.125rem); line-height: 1.08; }
+  .type-section-heading { @apply font-serif; font-size: clamp(1.75rem, 2.4vw, 2.5rem); line-height: 1.08; }
   .type-lead { @apply font-sans; font-size: clamp(1.25rem, 2.1vw, 2.1rem); line-height: 1.42; }
   /* About intro: editorial but calmer than type-lead */
   .type-intro { @apply font-sans; font-size: clamp(1.0625rem, 1.53vw, 1.5rem); line-height: 1.55; }
@@ -223,6 +223,19 @@
   outline-color: var(--color-cream);
 }
 
+/* On a cobalt section: cream outline by default, the same wipe fills it cream */
+.btn-wipe--on-cobalt {
+  background: transparent;
+  color: var(--color-cream);
+  outline: 1px solid var(--color-cream);
+  outline-offset: -1px;
+}
+.btn-wipe--on-cobalt .btn-wipe__fill {
+  background: var(--color-cream);
+  color: var(--color-cobalt);
+  outline-color: var(--color-cream);
+}
+
 .btn-wipe:focus-visible .btn-wipe__fill { clip-path: circle(150% at var(--x) var(--y)); }
 @media (hover: hover) {
   .btn-wipe:hover .btn-wipe__fill { clip-path: circle(150% at var(--x) var(--y)); }
@@ -237,9 +250,37 @@
   transition: background-size 0.5s cubic-bezier(0.22, 1, 0.36, 1), color 0.3s;
 }
 .link-wipe:hover, .link-wipe:focus-visible { background-size: 100% 1px; }
-/* Navigation reuses that underline; the current page keeps it drawn, so hover never doubles it */
-.link-wipe[aria-current='page'] { background-size: 100% 1px; }
-.nav-underline { padding-bottom: 4px; }
+/* Navigation: the current page is an outlined pill. The outline draws in left to right, like the rule under project titles;
+   links hint at it on hover. Inactive links carry the same padding, so nothing shifts. */
+.nav-pill {
+  position: relative;
+  padding: 0.25rem 1.1rem;
+  line-height: 1.3;
+  transition: color 0.3s;
+}
+.nav-pill::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border: 1px solid currentColor;
+  border-radius: 9999px;
+  pointer-events: none;
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.nav-pill:hover::after,
+.nav-pill:focus-visible::after { clip-path: inset(0 0 0 0); }
+.nav-pill[aria-current='page']::after {
+  clip-path: inset(0 0 0 0);
+  animation: nav-pill-draw 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both;
+}
+@keyframes nav-pill-draw {
+  from { clip-path: inset(0 100% 0 0); }
+  to { clip-path: inset(0 0 0 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nav-pill::after { transition: none; animation: none !important; }
+}
 
 /* Interactive heading words (Home H2s): lift follows the pointer */
 .rh-word {
@@ -286,4 +327,64 @@
 @media (prefers-reduced-motion: reduce) {
   .uw { transition: none; }
   .bounce-soft { animation: none; }
+}
+
+/* ── Work cards: hover reveal (hover / keyboard focus) ───────────────────────────────
+   Pointer devices: the title is hidden; on hover the image steps down, tilts a few degrees counter-clockwise and gets a
+   cobalt wash, while the title rolls up into the space above it.
+   Touch / no hover: the title simply sits above the image. Sizes are in em of the card's font-size so they scale together. */
+.work-card {
+  font-size: clamp(1rem, 1.45vw, 1.25rem);
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --shift: 2.3em;        /* title line (1.2) + gap (~0.7) + room for the tilt */
+  --tilt: -4deg;
+  --wash: 0.65;          /* cobalt overlay opacity on hover */
+}
+.work-text {
+  display: block;
+  margin-bottom: 0.5em;
+  font-family: var(--font-serif);
+  letter-spacing: 0.01em;
+  color: var(--color-cobalt);
+}
+.wc-line { display: block; overflow: hidden; white-space: nowrap; line-height: 1.2; }
+.wc-line > span { display: block; }
+.work-overlay { opacity: 0; }
+
+@media (hover: hover) and (pointer: fine) {
+  .work-text {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    margin: 0;
+    pointer-events: none;
+  }
+  .wc-line > span {
+    transform: translateY(110%);
+    transition: transform 0.6s var(--ease) 0.05s;
+  }
+  .work-card-media {
+    transform-origin: 50% 50%;
+    transition: transform 0.65s var(--ease);
+  }
+  .work-overlay { transition: opacity 0.5s var(--ease); }
+  .work-card:hover .work-card-media,
+  .work-card:focus-visible .work-card-media { transform: translateY(var(--shift)) rotate(var(--tilt)); }
+  .work-card:hover .work-overlay,
+  .work-card:focus-visible .work-overlay { opacity: var(--wash); }
+  .work-card:hover .wc-line > span,
+  .work-card:focus-visible .wc-line > span { transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .wc-line > span,
+  .work-card-media,
+  .work-overlay { transition: none; }
+}
+
+/* ── Home hero collage: tiles tilt a couple of degrees under the pointer (touch / reduced motion: static) ── */
+.home-tile__inner { transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1); }
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .home-tile:hover { z-index: 6 !important; }
+  .home-tile:hover .home-tile__inner { transform: translateY(-4px) rotate(calc(var(--tilt) * 1.6)) scale(1.05); }
 }
