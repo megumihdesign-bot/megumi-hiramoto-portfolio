@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'r
 import { AnimatePresence, MotionConfig, motion } from 'motion/react';
 
 import { CustomCursor } from './components/CustomCursor';
+import { ScrollCue } from './components/ScrollCue';
 import { Header, Footer } from './components/Navigation';
 import { IntroSequence } from './components/IntroSequence';
 
@@ -70,6 +71,7 @@ export default function App() {
         style={{ pointerEvents: showIntro ? 'none' : 'auto' }}
       >
         <AppContent showIntro={showIntro} />
+        {!showIntro && <ScrollCue />}
       </motion.div>
 
       <AnimatePresence>

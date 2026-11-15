@@ -250,8 +250,10 @@
   transition: background-size 0.5s cubic-bezier(0.22, 1, 0.36, 1), color 0.3s;
 }
 .link-wipe:hover, .link-wipe:focus-visible { background-size: 100% 1px; }
-/* Navigation: the current page is an outlined pill. The outline draws in left to right, like the rule under project titles;
-   links hint at it on hover. Inactive links carry the same padding, so nothing shifts. */
+/* Navigation: the current page is an outlined pill. The outline is one continuous stroke that starts at the pill's left
+   edge and draws clockwise (up and over the top, round the right end, back along the bottom); links hint at it on hover.
+   Inactive links carry the same padding, so nothing shifts. */
+@property --pill-a { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
 .nav-pill {
   position: relative;
   padding: 0.25rem 1.1rem;
@@ -265,21 +267,50 @@
   border: 1px solid currentColor;
   border-radius: 9999px;
   pointer-events: none;
-  clip-path: inset(0 100% 0 0);
-  transition: clip-path 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  --pill-a: 0deg;
+  -webkit-mask-image: conic-gradient(from 270deg at 50% 50%, #000 var(--pill-a), transparent calc(var(--pill-a) + 0.01deg));
+  mask-image: conic-gradient(from 270deg at 50% 50%, #000 var(--pill-a), transparent calc(var(--pill-a) + 0.01deg));
+  transition: --pill-a 0.4s cubic-bezier(0.3, 0, 0.15, 1);
 }
 .nav-pill:hover::after,
-.nav-pill:focus-visible::after { clip-path: inset(0 0 0 0); }
+.nav-pill:focus-visible::after { --pill-a: 360deg; }
 .nav-pill[aria-current='page']::after {
-  clip-path: inset(0 0 0 0);
-  animation: nav-pill-draw 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both;
+  --pill-a: 360deg;
+  animation: nav-pill-draw 0.5s cubic-bezier(0.3, 0, 0.15, 1) 0.1s both;
 }
 @keyframes nav-pill-draw {
-  from { clip-path: inset(0 100% 0 0); }
-  to { clip-path: inset(0 0 0 0); }
+  from { --pill-a: 0deg; }
+  to { --pill-a: 360deg; }
 }
 @media (prefers-reduced-motion: reduce) {
   .nav-pill::after { transition: none; animation: none !important; }
+}
+
+/* Scroll cue (Home and Work): a small hint at the bottom right that there is more below; it leaves once you scroll */
+.scroll-cue {
+  position: fixed;
+  right: 4rem;
+  bottom: 2rem;
+  z-index: 40;
+  pointer-events: none;
+  color: var(--color-cobalt);
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.scroll-cue[data-show='true'] { opacity: 1; transform: none; }
+@media (max-width: 1023px) { .scroll-cue { right: 1.5rem; bottom: 1.25rem; } }
+/* Arrow-only cue: a cream-filled round outline */
+.scroll-cue--circle {
+  display: flex; align-items: center; justify-content: center;
+  width: 52px; height: 52px; padding: 0; box-sizing: border-box; aspect-ratio: 1 / 1;
+  border: 1px solid currentColor; border-radius: 50%; background: var(--color-cream);
+}
+.scroll-cue svg { animation: cue-nudge 2.2s ease-in-out infinite; }
+@keyframes cue-nudge { 0%, 100% { transform: translateY(-2px); } 50% { transform: translateY(3px); } }
+@media (prefers-reduced-motion: reduce) {
+  .scroll-cue { transition: opacity 0.3s ease; transform: none; }
+  .scroll-cue svg { animation: none; }
 }
 
 /* Interactive heading words (Home H2s): lift follows the pointer */
