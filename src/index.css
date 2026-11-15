@@ -191,6 +191,7 @@
   --x: 50%; --y: 50%;
   position: relative;
   overflow: hidden;
+  border-radius: 9999px;
   background: var(--color-cobalt);
   color: var(--color-cream);
 }
@@ -202,6 +203,7 @@
   z-index: 2;
   padding: inherit;
   text-align: inherit;
+  border-radius: inherit;
   background: var(--color-cream);
   color: var(--color-cobalt);
   /* outline rather than border: no layout change, and it is revealed by the same wipe */
@@ -308,6 +310,25 @@
 }
 .scroll-cue svg { animation: cue-nudge 2.2s ease-in-out infinite; }
 @keyframes cue-nudge { 0%, 100% { transform: translateY(-2px); } 50% { transform: translateY(3px); } }
+/* Home: the full-round "See selected works" button (circle, label left-aligned, arrow top right) */
+.btn-wipe.btn-round {
+  width: 8.75rem; height: 8.75rem; padding: 0; border-radius: 50%; text-align: left;
+  font-size: 0.9375rem; line-height: 1.25;
+}
+.btn-round .btn-wipe__label,
+.btn-round .btn-wipe__fill {
+  position: absolute; inset: 0; padding: 0 0 0 1.65rem; border-radius: 50%;
+  display: flex; align-items: center;
+}
+.btn-round .btn-wipe__label { z-index: 1; }
+.btn-round .btn-arrow { position: absolute; top: 28%; right: 25%; margin: 0; vertical-align: baseline; line-height: 0; }
+
+/* Diagonal arrow after a button label: same arrow and nudge as the scroll cue, moving along its own direction */
+.btn-arrow { display: inline-block; margin-left: 0.55em; vertical-align: -0.1em; animation: btn-arrow-nudge 2.2s ease-in-out infinite; }
+@keyframes btn-arrow-nudge { 0%, 100% { transform: translate(-1.4px, 1.4px); } 50% { transform: translate(2.1px, -2.1px); } }
+@media (prefers-reduced-motion: reduce) {
+  .btn-arrow { animation: none; }
+}
 @media (prefers-reduced-motion: reduce) {
   .scroll-cue { transition: opacity 0.3s ease; transform: none; }
   .scroll-cue svg { animation: none; }
@@ -399,11 +420,16 @@
     transform-origin: 50% 50%;
     transition: transform 0.65s var(--ease);
   }
-  .work-overlay { transition: opacity 0.5s var(--ease); }
+  /* the wash is always at its final opacity; a circle clip, centred where the pointer entered, reveals it */
+  .work-overlay {
+    opacity: var(--wash);
+    clip-path: circle(0% at var(--x, 50%) var(--y, 50%));
+    transition: clip-path 0.6s var(--ease);
+  }
   .work-card:hover .work-card-media,
   .work-card:focus-visible .work-card-media { transform: translateY(var(--shift)) rotate(var(--tilt)); }
   .work-card:hover .work-overlay,
-  .work-card:focus-visible .work-overlay { opacity: var(--wash); }
+  .work-card:focus-visible .work-overlay { clip-path: circle(150% at var(--x, 50%) var(--y, 50%)); }
   .work-card:hover .wc-line > span,
   .work-card:focus-visible .wc-line > span { transform: translateY(0); }
 }

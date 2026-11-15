@@ -1,3 +1,4 @@
+import { PointerEvent } from 'react';
 import { motion } from 'motion/react';
 import { Link } from 'react-router-dom';
 import { PROJECTS } from '../constants';
@@ -6,8 +7,8 @@ import { RevealHeading, RevealImage } from '../components/Reveal';
 
 /**
  * Work page: four columns of covers at their native ratios (square or 1080x1400), rows top-aligned.
- * Hover / keyboard focus: the image steps down and tilts slightly counter-clockwise, a cobalt overlay comes in
- * over it, and the project title rolls up in the space above.
+ * Hover / keyboard focus: the image steps down and tilts slightly counter-clockwise, a cobalt overlay wipes in
+ * over it from the pointer, and the project title rolls up in the space above.
  */
 
 // Native cover sizes (public/images/Hero). Anything not listed is treated as square.
@@ -22,6 +23,15 @@ const COVER_SIZE: Record<string, { w: number; h: number }> = {
   'Project_8.webp': { w: 1080, h: 1400 },
 };
 const coverSize = (src: string) => COVER_SIZE[src.split('/').pop() ?? ''] ?? { w: 1, h: 1 };
+
+// The cobalt overlay wipes in from where the pointer entered (and back out where it left), like the buttons and press tiles
+const setOrigin = (e: PointerEvent<HTMLElement>) => {
+  const media = e.currentTarget.querySelector<HTMLElement>('.work-card-media');
+  if (!media) return;
+  const r = media.getBoundingClientRect();
+  media.style.setProperty('--x', `${e.clientX - r.left}px`);
+  media.style.setProperty('--y', `${e.clientY - r.top}px`);
+};
 
 export const Work = () => {
   return (
@@ -40,7 +50,7 @@ export const Work = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: (idx % 4) * 0.1 }}
             >
-              <Link to={`/work/${project.id}`} className="work-card group relative block outline-none">
+              <Link to={`/work/${project.id}`} className="work-card group relative block outline-none" onPointerEnter={setOrigin} onPointerLeave={setOrigin}>
                 <span className="work-text">
                   <span className="wc-line"><span>{project.cardTitle}</span></span>
                 </span>

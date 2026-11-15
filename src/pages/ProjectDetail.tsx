@@ -95,7 +95,7 @@ export const ProjectDetail = () => {
               {chips.map((c, i) => (
                 <li
                   key={c}
-                  className={`text-[13px] md:text-[15px] px-5 py-2 border border-cream ${i === 0 ? 'text-cream' : 'bg-cream text-cobalt'}`}
+                  className={`text-[13px] md:text-[15px] px-5 py-2 rounded-full border border-cream ${i === 0 ? 'text-cream' : 'bg-cream text-cobalt'}`}
                 >
                   {c}
                 </li>

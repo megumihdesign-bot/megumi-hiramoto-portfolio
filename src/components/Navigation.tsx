@@ -190,26 +190,28 @@ export const Header = () => {
 };
 
 export const Footer = ({ isHome = false }: { isHome?: boolean }) => {
-  // The Home page ends on a cobalt section, so the footer sits close under it
-  const flush = isHome || useLocation().pathname === '/';
+  // The Home page ends on a cobalt section: the cobalt runs behind the footer, and the pill is knocked out in cream
+  const home = isHome || useLocation().pathname === '/';
+  const ink = home ? 'text-cream' : 'text-cobalt';
+  const hover = home ? 'hover:text-cream/70' : 'hover:text-accent';
   return (
-    <footer className={`w-full mt-auto ${flush ? 'pt-0' : 'pt-24 md:pt-32'}`}>
+    <footer className={`w-full mt-auto ${home ? 'pt-0 bg-cobalt on-cobalt' : 'pt-24 md:pt-32'}`}>
       {/* Outlined pill; the padding is even top and bottom and every item is centred on the pill's midline */}
       <div className="page-x pt-6 pb-6 md:pt-8 md:pb-8">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-5 md:gap-6 rounded-[2rem] md:rounded-full border border-cobalt px-8 md:px-12 py-6 md:py-7">
-          <p className="text-xs text-cobalt leading-none">
+        <div className={`flex flex-col md:flex-row items-center justify-between gap-5 md:gap-6 rounded-[2rem] md:rounded-full border ${home ? 'border-cream' : 'border-cobalt'} px-8 md:px-12 py-6 md:py-7`}>
+          <p className={`text-xs ${ink} leading-none`}>
             © 2026 Megumi Hiramoto. All Rights Reserved.
           </p>
 
           <div className="flex gap-6 items-center">
-            <a href="https://www.instagram.com/megumihdesign/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="flex text-cobalt hover:text-accent transition-colors">
+            <a href="https://www.instagram.com/megumihdesign/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className={`flex ${ink} ${hover} transition-colors`}>
               <Instagram size={20} strokeWidth={1.5} />
             </a>
-            <a href="https://www.linkedin.com/in/megumi-hiramoto-design" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="flex text-cobalt hover:text-accent transition-colors">
+            <a href="https://www.linkedin.com/in/megumi-hiramoto-design" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className={`flex ${ink} ${hover} transition-colors`}>
               <Linkedin size={20} strokeWidth={1.5} />
             </a>
             <Link to="/" aria-label="Megumi Hiramoto, home" data-cursor="logo" className="flex ml-2">
-              <img src="/M-cobalt.svg" alt="" aria-hidden="true" className="h-[13px] w-auto" />
+              <img src={home ? '/M-cream.svg' : '/M-cobalt.svg'} alt="" aria-hidden="true" className="h-[13px] w-auto" />
             </Link>
           </div>
         </div>

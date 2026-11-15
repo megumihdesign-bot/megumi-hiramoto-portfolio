@@ -98,7 +98,20 @@ export const Home = () => {
           </div>
 
           <Reveal className="lg:col-start-1 lg:col-span-3 lg:row-start-1 lg:self-end">
-            <WipeButton to="/work" variant="onCobalt">See selected works</WipeButton>
+            <WipeButton to="/work" variant="inverse" className="btn-round">
+              <span>
+                See
+                <br />
+                selected
+                <br />
+                works
+              </span>
+              <span className="btn-arrow" aria-hidden="true">
+                <svg width="12" height="16" viewBox="0 0 12 16" fill="none" stroke="currentColor" strokeWidth="1.3" style={{ transform: 'rotate(-135deg)' }}>
+                  <path d="M6 1v12M1.5 8.5L6 13l4.5-4.5" />
+                </svg>
+              </span>
+            </WipeButton>
           </Reveal>
         </div>
       </section>
